@@ -515,7 +515,7 @@ body {
 
 /* Skills Section */
 .skills {
-    min-height: auto;
+    min-height: 100vh;
     padding: 8rem 0 5rem 0;
     background: var(--gradient-light);
     scroll-snap-align: start;
@@ -524,6 +524,7 @@ body {
     overflow: hidden;
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .skills::before {

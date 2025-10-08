@@ -1,14 +1,53 @@
-// Loading Animation
-const loading = document.createElement("div");
-loading.className = "loading";
-loading.innerHTML = '<div class="loading-spinner"></div>';
-document.body.appendChild(loading);
+// Simple Loading Screen - Fixed for mobile
+(function() {
+  const loadingScreen = document.querySelector(".loading-screen");
+  
+  function hideLoadingScreen() {
+    if (loadingScreen) {
+      loadingScreen.classList.add("hidden");
+      setTimeout(() => {
+        loadingScreen.style.display = "none";
+        // Enable scrolling after loading screen is hidden
+        document.body.style.overflow = "auto";
+      }, 600);
+    }
+  }
+  
+  // Prevent scrolling while loading
+  if (loadingScreen) {
+    document.body.style.overflow = "hidden";
+  }
+  
+  // Multiple fallbacks to ensure loading screen disappears
+  let loaded = false;
+  
+  const triggerHide = () => {
+    if (!loaded) {
+      loaded = true;
+      hideLoadingScreen();
+    }
+  };
+  
+  // Try on DOMContentLoaded
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", triggerHide);
+  } else {
+    triggerHide();
+  }
+  
+  // Fallback on window load
+  window.addEventListener("load", triggerHide);
+  
+  // Safety timeout - force hide after 3 seconds
+  setTimeout(triggerHide, 3000);
+})();
 
-// Scroll Handling
+// Scroll Handling - Disabled on mobile for better compatibility
 let isScrolling = false;
 let currentSection = 0;
 const sections = document.querySelectorAll("section");
 const totalSections = sections.length;
+const isMobile = window.innerWidth <= 768;
 
 // Function to update active nav link
 function updateActiveNavLink(sectionIndex) {
@@ -41,76 +80,45 @@ function scrollToSection(index) {
   }
 }
 
-// Handle wheel events
-window.addEventListener(
-  "wheel",
-  function (e) {
-    e.preventDefault();
+// Only enable custom scroll handling on desktop
+if (!isMobile) {
+  // Handle wheel events
+  window.addEventListener(
+    "wheel",
+    function (e) {
+      e.preventDefault();
 
-    if (isScrolling) return;
+      if (isScrolling) return;
 
-    if (e.deltaY > 0) {
-      // Scrolling down
-      scrollToSection(currentSection + 1);
-    } else {
-      // Scrolling up
-      scrollToSection(currentSection - 1);
-    }
-  }, {
-    passive: false
-  }
-);
-
-// Handle keyboard navigation
-window.addEventListener("keydown", function (e) {
-  if (isScrolling) return;
-
-  if (e.key === "ArrowDown" || e.key === "PageDown") {
-    e.preventDefault();
-    scrollToSection(currentSection + 1);
-  } else if (e.key === "ArrowUp" || e.key === "PageUp") {
-    e.preventDefault();
-    scrollToSection(currentSection - 1);
-  }
-});
-
-// Handle touch events for mobile
-let touchStartY = 0;
-window.addEventListener(
-  "touchstart",
-  function (e) {
-    touchStartY = e.touches[0].clientY;
-  }, {
-    passive: true
-  }
-);
-
-window.addEventListener(
-  "touchend",
-  function (e) {
-    if (isScrolling) return;
-
-    const touchEndY = e.changedTouches[0].clientY;
-    const diff = touchStartY - touchEndY;
-
-    if (Math.abs(diff) > 50) {
-      // Minimum swipe distance
-      if (diff > 0) {
-        // Swipe up
+      if (e.deltaY > 0) {
+        // Scrolling down
         scrollToSection(currentSection + 1);
       } else {
-        // Swipe down
+        // Scrolling up
         scrollToSection(currentSection - 1);
       }
+    }, {
+      passive: false
     }
-  }, {
-    passive: true
-  }
-);
+  );
 
-// Update current section on scroll
+  // Handle keyboard navigation
+  window.addEventListener("keydown", function (e) {
+    if (isScrolling) return;
+
+    if (e.key === "ArrowDown" || e.key === "PageDown") {
+      e.preventDefault();
+      scrollToSection(currentSection + 1);
+    } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+      e.preventDefault();
+      scrollToSection(currentSection - 1);
+    }
+  });
+}
+
+// Update current section on scroll (works on both mobile and desktop)
 window.addEventListener("scroll", function () {
-  if (isScrolling) return;
+  if (isScrolling && !isMobile) return;
 
   const scrollPosition = window.scrollY;
   sections.forEach((section, index) => {
@@ -125,14 +133,6 @@ window.addEventListener("scroll", function () {
       updateActiveNavLink(index);
     }
   });
-});
-
-// Remove loading screen when page is loaded
-window.addEventListener("load", () => {
-  loading.classList.add("hidden");
-  setTimeout(() => {
-    loading.remove();
-  }, 500);
 });
 
 // Mobile Menu Toggle with Animation
@@ -434,20 +434,4 @@ window.addEventListener('resize', () => {
 // Initialize slider after DOM is fully loaded
 setTimeout(() => {
   updateSlider();
-}, 100);
-
-// Simple Loading Screen
-document.addEventListener("DOMContentLoaded", function () {
-  const loadingScreen = document.querySelector(".loading-screen");
-
-  // Hide loading screen after content is loaded
-  window.addEventListener("load", function () {
-    setTimeout(() => {
-      loadingScreen.classList.add("hidden");
-      // Add a cool transition effect
-      setTimeout(() => {
-        loadingScreen.style.display = "none";
-      }, 600);
-    }, 200); // Reduced from 400ms to 200ms
-  });
-}); 
+}, 100); 

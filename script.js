@@ -1,62 +1,43 @@
-// Mobile Menu Toggle Functionality
-
 document.addEventListener('DOMContentLoaded', function () {
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const socialSidebar = document.getElementById('socialSidebar');
-    const mobileOverlay = document.getElementById('mobileOverlay');
 
-    // Toggle menu function
-    function toggleMenu() {
-        mobileMenuBtn.classList.toggle('active');
-        socialSidebar.classList.toggle('active');
-        mobileOverlay.classList.toggle('active');
-    }
+    // ── Mobile "Home ▾" nav dropdown ─────────────────────────────────────
+    const navHomeBtn = document.getElementById('navHomeBtn');
+    const navHomeSub = document.getElementById('navHomeSub');
 
-    // Close menu function
-    function closeMenu() {
-        mobileMenuBtn.classList.remove('active');
-        socialSidebar.classList.remove('active');
-        mobileOverlay.classList.remove('active');
-    }
+    if (navHomeBtn && navHomeSub) {
+        navHomeBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const open = navHomeSub.classList.toggle('open');
+            navHomeBtn.classList.toggle('active', open);
+        });
 
-    // Event listener for menu button
-    mobileMenuBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        toggleMenu();
-    });
+        navHomeSub.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navHomeSub.classList.remove('open');
+                navHomeBtn.classList.remove('active');
+            });
+        });
 
-    // Event listener for overlay (click outside to close)
-    mobileOverlay.addEventListener('click', function () {
-        closeMenu();
-    });
+        document.addEventListener('click', function () {
+            navHomeSub.classList.remove('open');
+            navHomeBtn.classList.remove('active');
+        });
 
-    // Close menu when clicking on a link in the sidebar
-    const sidebarLinks = socialSidebar.querySelectorAll('a');
-    sidebarLinks.forEach(function (link) {
-        link.addEventListener('click', closeMenu);
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && socialSidebar.classList.contains('active')) {
-            closeMenu();
-        }
-    });
-
-    // Smooth scroll for anchor links
-    const anchorLinks = document.querySelectorAll('nav a[href^="#"]');
-    anchorLinks.forEach(function (link) {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                navHomeSub.classList.remove('open');
+                navHomeBtn.classList.remove('active');
             }
         });
+    }
+
+    // ── Smooth scroll for anchor links ───────────────────────────────────
+    document.querySelectorAll('nav a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     });
+
 });

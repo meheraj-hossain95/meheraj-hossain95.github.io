@@ -5,205 +5,246 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Md. Meheraj Hossain Opi - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <!-- Social Sidebar - Desktop Only -->
-    <aside class="social-sidebar" id="socialSidebar">
-        <ul>
-            <li><a href="mailto:mdmeherajhossain95@gmail.com">Email</a></li>
-            <li><a href="https://www.linkedin.com/in/meheraj-hossain95/" target="_blank">LinkedIn</a></li>
-            <li><a href="https://github.com/meheraj-hossain95" target="_blank">GitHub</a></li>
-            <li><a href="https://codeforces.com/profile/meheraj_hossain_" target="_blank">Codeforces</a></li>
-            <li><a href="https://www.kaggle.com/meherajhossain95" target="_blank">Kaggle</a></li>
-            <li><a href="https://discord.com/users/mdmeherajhossain.95" target="_blank">Discord</a></li>
-            <li><a href="https://t.me/mdmeherajhossain95" target="_blank">Telegram</a></li>
-        </ul>
-    </aside>
 
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-    <!-- Mobile Overlay -->
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-
-    <!-- Navigation - Full Width -->
+    <!-- Navigation -->
     <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#achievements">Achievements</a>
-        <a href="#projects">Projects</a>
-        <a href="Md_Meheraj_Hossain_Opi_Resume.pdf" target="_blank">CV</a>
-    </nav>
-
-    <!-- Main Container -->
-    <div class="container">
-
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h2>Md. Meheraj Hossain Opi</h2>
-                    <p class="tagline">Aspiring ML Engineer & Competitive Programmer</p>
+        <a href="#home" class="nav-name">Meheraj Hossain</a>
+        <div class="nav-right">
+            <!-- Desktop: three separate links -->
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#projects">Projects</a>
+                <a href="#achievements">Achievements</a>
+            </div>
+            <!-- Mobile: Home with dropdown -->
+            <div class="nav-home-mobile" id="navHomeMobile">
+                <button class="nav-home-btn" id="navHomeBtn">Home <span class="nav-arrow">&#9660;</span></button>
+                <div class="nav-home-sub" id="navHomeSub">
+                    <a href="#projects">Projects</a>
+                    <a href="#achievements">Achievements</a>
                 </div>
             </div>
-        </section>
+            <a href="Md_Meheraj_Hossain_Opi_Resume.pdf" target="_blank" class="nav-cv">CV</a>
+        </div>
+    </nav>
 
-        <!-- About Section -->
-        <section id="about" class="about">
-            <h2>About me</h2>
-            <p>
-                Hi, I’m Md. Meheraj Hossain Opi. I started with competitive programming, where I spent time solving
-                algorithmic problems and building a foundation in coding and data structures.
-            </p>
-            <p>
-                After that, I moved into machine learning and worked on projects using real datasets.
-                My work covered data preprocessing, feature extraction, model training, and evaluation within complete
-                ML pipelines.
-            </p>
-            <p>
-                Recently, my work has been focused on audio-based machine learning, mainly audio classification. I’ve
-                worked
-                with real audio datasets and explored audio preprocessing methods, audio feature representations, and
-                different
-                classification models to understand how audio data can be handled in machine learning tasks.
-            </p>
-            <p>
-                Currently, I’m working mainly on audio-based machine learning, focusing on audio classification and
-                extracting audio features across different domains. Alongside this, I’m
-                also learning general backend development as a separate area of interest.
-            </p>
-            <p><strong>Contact:</strong> mdmeherajhossain95@gmail.com</p>
-        </section>
+    <!-- Main 3-Column Layout -->
+    <div class="page-layout">
 
-        <!-- Skills Section -->
-        <section id="skills" class="skills">
-            <h2>Skills</h2>
+        <!-- LEFT SIDEBAR - Skills -->
+        <aside class="left-sidebar" id="socialSidebar">
+            <div class="sidebar-sticky">
+            <div class="sidebar-skills" id="skills">
+                <h2 class="sidebar-title">Skills</h2>
 
-            <div class="skill-category">
-                <h3>Languages</h3>
-                <p>C/C++, Python, Java, HTML, CSS, JavaScript</p>
+                <div class="skill-group">
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span>C/C++</span>
+                        <span>Python</span>
+                        <span>Java</span>
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Databases</h3>
+                    <div class="skill-tags">
+                        <span>SQLite</span>
+                        <span>MySQL</span>
+                        <span>MongoDB</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>ML & Deep Learning</h3>
+                    <div class="skill-tags">
+                        <span>NumPy</span>
+                        <span>Pandas</span>
+                        <span>Matplotlib</span>
+                        <span>Scikit-Learn</span>
+                        <span>PyTorch</span>
+                        <span>Torchaudio</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Backend</h3>
+                    <div class="skill-tags">
+                        <span>Flask</span>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Tools & Platforms</h3>
+                    <div class="skill-tags">
+                        <span>Git</span>
+                        <span>Linux</span>
+                        <span>Docker</span>
+                        <span>Jupyter Notebook</span>
+                    </div>
+                </div>
             </div>
-
-            <div class="skill-category">
-                <h3>Databases</h3>
-                <p>SQLite, MySQL</p>
             </div>
+        </aside>
 
-            <div class="skill-category">
-                <h3>Frameworks & Libraries</h3>
-                <p>NumPy, Pandas, Matplotlib, Scikit-Learn, PyTorch, Flask, Librosa, Torchaudio</p>
-            </div>
+        <!-- CENTER - Main Content -->
+        <main class="main-content" id="home">
 
-            <div class="skill-category">
-                <h3>Tools & Platforms</h3>
-                <p>Git, Linux, Docker, Jupyter Notebook</p>
-            </div>
-        </section>
+            <h2 class="section-heading" id="projects">Projects</h2>
 
-        <!-- Achievements Section -->
-        <section id="achievements" class="achievements">
-            <h2>Achievements</h2>
-
-            <div class="achievement">
-                <h3>Merit Scholarship</h3>
-                <p>Awarded 100% merit scholarship for 4 years.</p>
-            </div>
-
-            <div class="achievement">
-                <h3>Codeforces Specialist</h3>
-                <p>Achieved Specialist rank on Codeforces.</p>
-            </div>
-
-            <div class="achievement">
-                <h3>9th Place - EWU CSE Fest</h3>
+            <article class="project-card">
+                <h3>Bangla Abstractive Summarizer</h3>
+                <p class="project-meta">PyTorch &middot; Transformers &middot; Hugging Face &middot; Gradio</p>
                 <p>
-                    Secured 9th place out of 180 participants in the EWU Intra-University Programming Contest – 2024.
+                    Fine-tuned mT5-small on the XL-Sum Bangla dataset for abstractive Bengali text summarization
+                    and deployed it on Hugging Face Spaces using Transformers and Gradio.
                 </p>
-            </div>
+                <a href="https://huggingface.co/spaces/Meheraj-Hossain/bangla-abstractive-summarizer-demo" target="_blank" class="read-more">View Project &#8599;</a>
+            </article>
 
-            <div class="achievement">
-                <h3>ICPC Regional Dhaka 2024</h3>
-                <p>
-                    Participated in ICPC Dhaka Regional 2024 as Team EWU Infinity Castle.
-                </p>
-            </div>
-
-            <div class="achievement">
-                <h3>Inter-University Programming Contests</h3>
-                <p>
-                    Participated in AUST IUPC 2025 and KUET IUPC 2025 as Team EWU Bit Lobon and Team EWU Winter Melon.
-                </p>
-            </div>
-
-            <div class="achievement">
-                <h3>Problem Setter</h3>
-                <p>Volunteered as a problem setter and judge for university-level programming contests.</p>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects">
-            <h2>Projects</h2>
-
-            <div class="project">
-                <h3>Origami</h3>
-                <p>
-                    Python desktop app for productivity and wellness. A comprehensive tool designed to help users
-                    manage their tasks efficiently while maintaining a healthy work-life balance.
-                </p>
-                <p class="tech">Technologies: Python, PySide6, Database</p>
-                <a href="https://github.com/meheraj-hossain95/Origami" target="_blank">View Project →</a>
-            </div>
-
-            <div class="project">
+            <article class="project-card">
                 <h3>Football Player Similarity Search</h3>
+                <p class="project-meta">Machine Learning &middot; Python &middot; PCA &middot; KNN</p>
                 <p>
                     Finds similar football players from 2024-2025 stats using PCA and KNN. This machine learning
                     project analyzes player statistics to identify players with similar playing styles and attributes.
                 </p>
-                <p class="tech">Technologies: Machine Learning, Python, Similarity Search, PCA, KNN</p>
-                <a href="https://github.com/meheraj-hossain95/Football-Player-Similarity-Search" target="_blank">View
-                    Project →</a>
-            </div>
+                <a href="https://github.com/meheraj-hossain95/Football-Player-Similarity-Search" target="_blank" class="read-more">View Project &#8599;</a>
+            </article>
 
-            <div class="project">
-                <h3>Game Of Words</h3>
-                <p>
-                    Word game for building 4-7 letter words and learning vocabulary. An interactive educational game
-                    that helps players expand their vocabulary while having fun with word puzzles.
-                </p>
-                <p class="tech">Technologies: Java, Java Swing, Word Game</p>
-                <a href="https://github.com/meheraj-hossain95/Game-Of-Words" target="_blank">View Project →</a>
-            </div>
-
-            <div class="project">
+            <article class="project-card">
                 <h3>BanglaNLP Wikipedia Corpus</h3>
+                <p class="project-meta">Python &middot; Pandas &middot; Data Collection &middot; Kaggle</p>
                 <p>
-                    Comprehensive dataset for Bangla NLP tasks from Wikipedia. This dataset provides valuable resources
-                    for natural language processing research and applications in the Bengali language.
+                    Built a structured Bangla Wikipedia text corpus by collecting and cleaning raw articles,
+                    and published the dataset on Kaggle as a data resource for NLP work.
                 </p>
-                <p class="tech">Technologies: Wikipedia, NLP, Text Classification, Dataset Creation</p>
-                <a href="https://www.kaggle.com/datasets/meherajhossain95/banglanlp-wikipedia-corpus"
-                    target="_blank">View Project →</a>
-            </div>
+                <a href="https://www.kaggle.com/datasets/meherajhossain95/banglanlp-wikipedia-corpus" target="_blank" class="read-more">View Project &#8599;</a>
+            </article>
 
-            <div class="project">
+            <article class="project-card">
+                <h3>Origami</h3>
+                <p class="project-meta">Python &middot; PySide6 &middot; Database</p>
+                <p>
+                    Python desktop app for productivity and wellness. A comprehensive tool designed to help users
+                    manage their tasks efficiently while maintaining a healthy work-life balance.
+                </p>
+                <a href="https://github.com/meheraj-hossain95/Origami" target="_blank" class="read-more">View Project &#8599;</a>
+            </article>
+
+            <article class="project-card">
                 <h3>ListIt</h3>
+                <p class="project-meta">HTML &middot; CSS &middot; JavaScript</p>
                 <p>
                     Modern note-taking app with AI tools and collaboration features. A web-based application that
                     combines traditional note-taking with advanced AI capabilities for enhanced productivity.
                 </p>
-                <p class="tech">Technologies: HTML, CSS, JavaScript</p>
-                <a href="https://github.com/meheraj-hossain95/ListIt" target="_blank">View Project →</a>
+                <a href="https://github.com/meheraj-hossain95/ListIt" target="_blank" class="read-more">View Project &#8599;</a>
+            </article>
+
+            <article class="project-card">
+                <h3>Game Of Words</h3>
+                <p class="project-meta">Java &middot; Java Swing &middot; Word Game</p>
+                <p>
+                    Word game for building 4-7 letter words and learning vocabulary. An interactive educational game
+                    that helps players expand their vocabulary while having fun with word puzzles.
+                </p>
+                <a href="https://github.com/meheraj-hossain95/Game-Of-Words" target="_blank" class="read-more">View Project &#8599;</a>
+            </article>
+
+            <div class="center-section" id="achievements">
+                <h2 class="section-heading">Achievements</h2>
+
+                <div class="sidebar-card">
+                    <h3>Merit Scholarship</h3>
+                    <p>Awarded 100% merit scholarship for 4 years.</p>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Codeforces Specialist</h3>
+                    <p>Achieved Specialist rank on Codeforces.</p>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>9th Place - EWU CSE Fest</h3>
+                    <p>Secured 9th place out of 180 participants in the EWU Intra-University Programming Contest – 2024.</p>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>ICPC Regional Dhaka 2024</h3>
+                    <p>Participated in ICPC Dhaka Regional 2024 as Team EWU Infinity Castle.</p>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Inter-University Contests</h3>
+                    <p>Participated in AUST IUPC 2025 and KUET IUPC 2025 as Team EWU Bit Lobon and Team EWU Winter Melon.</p>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Problem Setter</h3>
+                    <p>Volunteered as problem setter and judge for university-level programming contests.</p>
+                </div>
             </div>
-        </section>
+        </main>
+
+        <!-- RIGHT SIDEBAR - About Me & Links -->
+        <aside class="right-sidebar">
+            <div class="sidebar-sticky">
+            <div class="about-card">
+                <h2 class="sidebar-title">About Me</h2>
+                <div class="profile-avatar">
+                    <span class="avatar-placeholder">MH</span>
+                </div>
+                <h3 class="about-name">Md. Meheraj Hossain Opi</h3>
+                <p class="about-bio">
+                    I am Md. Meheraj Hossain Opi, a Computer Science and Engineering graduate from East West University.<br>
+                    I got into programming through competitive programming, where I spent time learning and practicing algorithms and data structures. Later, my interest moved toward machine learning and artificial intelligence. For my undergraduate capstone project, I worked with a team on a deep learning system for audio forensics and speaker analysis.<br>
+                    Currently, I am building projects around Retrieval-Augmented Generation (RAG) and conversational AI, while solving problems on LeetCode in my spare time.
+                </p>
+                <p class="about-contact"><strong>Contact:</strong> mdmeherajhossain95@gmail.com</p>
+            </div>
+
+            <div class="links-card">
+                <h2 class="sidebar-title">Links</h2>
+                <div class="icon-links">
+                    <a href="mailto:mdmeherajhossain95@gmail.com" title="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/meheraj-hossain95/" target="_blank" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://github.com/meheraj-hossain95" target="_blank" title="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                    <a href="https://codeforces.com/profile/meheraj_hossain_" target="_blank" title="Codeforces">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 7.5C5.328 7.5 6 8.172 6 9v10.5c0 .828-.672 1.5-1.5 1.5h-3C.672 21 0 20.328 0 19.5V9c0-.828.672-1.5 1.5-1.5h3zm9-4.5c.828 0 1.5.672 1.5 1.5v15c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5v-15c0-.828.672-1.5 1.5-1.5h3zm9 7.5c.828 0 1.5.672 1.5 1.5v7.5c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5V12c0-.828.672-1.5 1.5-1.5h3z"/></svg>
+                    </a>
+                    <a href="https://www.kaggle.com/meherajhossain95" target="_blank" title="Kaggle">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.281.18.046.149.034.238-.034.27l-6.555 6.636 6.91 8.318c.07.095.082.183.034.278z"/></svg>
+                    </a>
+                    <a href="https://discord.com/users/mdmeherajhossain.95" target="_blank" title="Discord">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
+                    </a>
+                    <a href="https://t.me/mdmeherajhossain95" target="_blank" title="Telegram">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    </a>
+                    <a href="https://medium.com/@mdmeherajhossain95" target="_blank" title="Medium">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+                    </a>
+                </div>
+            </div>
+            </div>
+        </aside>
 
     </div>
 

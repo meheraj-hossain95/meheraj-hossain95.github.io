@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Meheraj Hossain Opi - Projects</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Header with Name -->
+    <header class="site-header">
+        <div class="header-content">
+            <h1 class="site-name"><a href="index.html">Meheraj Hossain</a></h1>
+        </div>
+        <!-- Navigation Bar -->
+        <nav class="main-nav">
+            <div class="nav-line"></div>
+            <div class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="skills.html">SKILLS</a>
+                <a href="projects.html" class="active">PROJECTS</a>
+                <a href="achievements.html">ACHIEVEMENTS</a>
+                <a href="articles.html">ARTICLES</a>
+                <a href="Md_Meheraj_Hossain_Opi_Resume.pdf">CV</a>
+            </div>
+            <!-- Mobile menu button -->
+            <button class="nav-mobile-btn" id="navMobileBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <!-- Mobile dropdown -->
+            <div class="nav-mobile-menu" id="navMobileMenu">
+                <a href="index.html">HOME</a>
+                <a href="skills.html">SKILLS</a>
+                <a href="projects.html" class="active">PROJECTS</a>
+                <a href="achievements.html">ACHIEVEMENTS</a>
+                <a href="articles.html">ARTICLES</a>
+                <a href="Md_Meheraj_Hossain_Opi_Resume.pdf">CV</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Container (White Box) -->
+    <div class="page-container">
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Projects Section -->
+            <section class="content-section">
+                <h2 class="section-heading">Projects</h2>
+
+                <article class="project-card">
+                    <h3>Audio Forensics Framework</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">WavLM</span>
+                        <span class="tech-tag">Torchaudio</span>
+                        <span class="tech-tag">Librosa</span>
+                    </div>
+                    <p>
+                        Capstone project in audio forensics covering speaker profiling, deepfake detection, and environmental sound classification. Used WavLM for speaker attributes (age, gender, accent, emotion) and deepfake detection, along with a CRNN model for environmental sound classification. Models were trained and evaluated on Common Voice, RAVDESS, ASVspoof, and ESC-50.
+                    </p>
+                </article>
+
+                <article class="project-card">
+                    <h3>Talk To Philosophers</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">RAG</span>
+                        <span class="tech-tag">LLM</span>
+                        <span class="tech-tag">FAISS Face</span>
+                        <span class="tech-tag">Streamlit</span>
+                    </div>
+                    <p>
+                        Talk To Philosophers is a local RAG-based project that provides a simple Streamlit interface to chat with philosophers like Marcus Aurelius and René Descartes, where user queries are answered by retrieving relevant passages from source texts using FAISS and then building prompts that reflect each philosopher’s tone, worldview, and historical context before generating responses locally; the system is structured as a modular pipeline covering ingestion, indexing, retrieval, and generation, with configurable personas that make it easy to extend while keeping responses grounded in the original texts and consistent with each thinker’s perspective.
+                    </p>
+                    <p><a href="https://github.com/meheraj-hossain95/Talk-To-Philosophers" target="_blank" class="project-link">View Project</a></p>
+                </article>
+
+                <article class="project-card">
+                    <h3>Bangla Abstractive Summarizer</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">Transformers</span>
+                        <span class="tech-tag">Hugging Face</span>
+                        <span class="tech-tag">Gradio</span>
+                    </div>
+                    <p>
+                        Fine-tuned mT5-small on the XL-Sum Bangla dataset for abstractive Bengali text summarization, and deployed the model on Hugging Face with an interactive demo built using Transformers and Gradio.
+                    </p>
+                    <p><a href="https://huggingface.co/spaces/Meheraj-Hossain/bangla-abstractive-summarizer-demo" target="_blank" class="project-link">View Project</a></p>
+                </article>
+
+                <article class="project-card">
+                    <h3>Football Player Similarity Search</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PCA</span>
+                        <span class="tech-tag">KNN</span>
+                    </div>
+                    <p>
+                        Finds similar football players from 2024-2025 stats using PCA and KNN. Player data from the top 5 leagues is cleaned and reduced, then compared using cosine similarity to return the 3 most similar players, with goalkeepers handled separately from outfield players for more relevant comparisons.
+                    </p>
+                    <p><a href="https://github.com/meheraj-hossain95/Football-Player-Similarity-Search" target="_blank" class="project-link">View Project</a></p>
+                </article>
+
+                <article class="project-card">
+                    <h3>BanglaNLP Wikipedia Corpus</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Data Collection</span>
+                        <span class="tech-tag">Kaggle</span>
+                    </div>
+                    <p>
+                        Built a structured Bangla Wikipedia text corpus by collecting and cleaning raw articles, and published the dataset on Kaggle as a data resource for NLP work.
+                    </p>
+                    <p><a href="https://www.kaggle.com/datasets/meherajhossain95/banglanlp-wikipedia-corpus" target="_blank" class="project-link">View Project</a></p>
+                </article>
+
+                <article class="project-card">
+                    <h3>Origami</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PySide6</span>
+                        <span class="tech-tag">Database</span>
+                    </div>
+                    <p>
+                        Python desktop app for productivity and wellness. A comprehensive tool designed to help users manage their tasks efficiently while maintaining a healthy work-life balance.
+                    </p>
+                    <p><a href="https://github.com/meheraj-hossain95/Origami" target="_blank" class="project-link">View Project</a></p>
+                </article>
+
+                <article class="project-card">
+                    <h3>ListIt</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <p>
+                        Modern note-taking app with AI tools and collaboration features. A web-based application that combines traditional note-taking with advanced AI capabilities for enhanced productivity.
+                    </p>
+                    <p><a href="https://github.com/meheraj-hossain95/ListIt" target="_blank" class="project-link">View Project</a></p>
+                </article>
+
+                <article class="project-card">
+                    <h3>Game Of Words</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Java Swing</span>
+                        <span class="tech-tag">Word Game</span>
+                    </div>
+                    <p>
+                        A word-building game where players form 4-7 letter words with different difficulty levels (Easy, Medium, Hard). Built with Java Swing, with file-based storage for user accounts, high scores, and a simple leaderboard.
+                    </p>
+                    <p><a href="https://github.com/meheraj-hossain95/Game-Of-Words" target="_blank" class="project-link">View Project</a></p>
+                </article>
+
+            </section>
+
+        </main>
+
+        <!-- Last Modified -->
+        <div class="last-modified">
+            <p id="last-modified-date">Last modified: <span></span> by meheraj_hossain</p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Meheraj Hossain &bull; <a href="mailto:mdmeherajhossain95@gmail.com">mdmeherajhossain95@gmail.com</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

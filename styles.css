@@ -1,13 +1,6 @@
-/* ========================================
-   RESET & BASE
-   ======================================== */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;600&display=swap');
 
-
+/* === RESET === */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -24,17 +17,14 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: #000;
-    background: #E9E9DD;
+    background: #F2F2F3; /* page background: light gray */
     overflow-x: hidden;
     min-height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-/* ========================================
-   HEADER (Left Aligned Name + Fixed Nav)
-   ======================================== */
-
+/* === HEADER === */
 .site-header {
     padding: 20px 20px 0;
     position: fixed;
@@ -42,13 +32,13 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: #D6D6C5;
+    background: #E9E9DD; /* header background: warm off-white */
     overflow: visible;
 }
 
 .header-content {
     max-width: 900px;
-    margin: 0 auto 0px;
+    margin: 0 auto;
     text-align: left;
 }
 
@@ -56,60 +46,53 @@ body {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 2.4em;
     font-weight: bold;
-    color: #0163BE;
+    color: #111827; /* name: blue */
     margin: 0;
     line-height: 1.1;
     letter-spacing: 1px;
 }
 
 .site-name a {
-    color: #0163BE;
+    color: #111827;
     text-decoration: none;
 }
 
 .site-name a:hover {
-    color: #024a8a;
+    color: #374151; /* name hover: darker blue */
 }
 
-/* ========================================
-   NAVIGATION BAR (With Line Behind)
-   ======================================== */
-
+/* === NAVIGATION === */
 .main-nav {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     z-index: 200;
-    padding: 30px 0 20px 0;
+    padding: 30px 20px 20px;
     margin: 0 -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    background: linear-gradient(to bottom, #D6D6C5 50%, #E9E9DD 50%);
+    background: linear-gradient(to bottom, #E9E9DD 50%, #F2F2F3 50%); /* half header color, half page bg */
     overflow: visible;
 }
 
-/* Horizontal line behind nav */
+/* full-width horizontal rule behind nav links */
 .nav-line {
     position: absolute;
     left: -9999px;
     right: -9999px;
     top: 50%;
     height: 1px;
-    background: #000000;
+    background: #000;
     z-index: 1;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 0;
-    background: #025FB6;
+    background: #111827; /* nav bar: medium blue */
     position: relative;
     z-index: 2;
     border-radius: 6px;
     box-shadow: 0 4px 15px rgba(2, 95, 182, 0.3), 0 2px 6px rgba(0, 0, 0, 0.1);
-    overflow: visible;
 }
 
 .nav-links a {
@@ -118,14 +101,17 @@ body {
     padding: 10px 18px;
     font-family: Arial, sans-serif;
     font-size: 0.85em;
-    letter-spacing: 0;
     white-space: nowrap;
-    background: #025FB6;
+    background: #111827;
     transition: background 0.2s ease;
     text-transform: uppercase;
-    border-right: 1px solid #4A8FD4;
+    border-right: 1px solid #374151; /* link divider: lighter blue */
     position: relative;
-    overflow: visible;
+}
+
+.nav-links a:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
 }
 
 .nav-links a:last-child {
@@ -134,15 +120,12 @@ body {
     border-bottom-right-radius: 6px;
 }
 
-.nav-links a:first-child {
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
+.nav-links a:hover,
+.nav-links a.active {
+    background: #1f2937 ; /* nav hover/active: dark blue */
 }
 
-.nav-links a:hover {
-    background: #035099;
-}
-
+/* downward triangle indicator */
 .nav-links a:hover::after,
 .nav-links a.active::after {
     content: '';
@@ -158,11 +141,7 @@ body {
     z-index: 10;
 }
 
-.nav-links a.active {
-    background: #035099;
-}
-
-/* Mobile menu button */
+/* === MOBILE NAV BUTTON === */
 .nav-mobile-btn {
     display: none;
     flex-direction: column;
@@ -171,7 +150,7 @@ body {
     gap: 3px;
     width: 40px;
     height: 40px;
-    background: #025FB6;
+    background: #111827;
     border: none;
     cursor: pointer;
     padding: 8px;
@@ -188,21 +167,20 @@ body {
     background: #fff;
 }
 
-/* Mobile dropdown menu */
+/* === MOBILE DROPDOWN MENU === */
 .nav-mobile-menu {
     display: none;
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background: #025FB6;
+    background: #111827;
     flex-direction: column;
     min-width: 180px;
     z-index: 3;
     border-radius: 6px;
     box-shadow: 0 4px 15px rgba(2, 95, 182, 0.3), 0 2px 6px rgba(0, 0, 0, 0.1);
     margin-top: 8px;
-    overflow: visible;
 }
 
 .nav-mobile-menu.open {
@@ -216,9 +194,13 @@ body {
     font-family: Arial, sans-serif;
     font-size: 0.85em;
     text-transform: uppercase;
-    border-bottom: 1px solid #4A8FD4;
+    border-bottom: 1px solid #374151;
     position: relative;
-    overflow: visible;
+}
+
+.nav-mobile-menu a:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 .nav-mobile-menu a:last-child {
@@ -227,15 +209,12 @@ body {
     border-bottom-right-radius: 6px;
 }
 
-.nav-mobile-menu a:first-child {
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+.nav-mobile-menu a:hover,
+.nav-mobile-menu a.active {
+    background: #1f2937;
 }
 
-.nav-mobile-menu a:hover {
-    background: #035099;
-}
-
+/* upward triangle indicator for mobile */
 .nav-mobile-menu a:hover::after,
 .nav-mobile-menu a.active::after {
     content: '';
@@ -252,29 +231,18 @@ body {
     filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.2));
 }
 
-.nav-mobile-menu a.active {
-    background: #035099;
-}
-
-/* ========================================
-   PAGE CONTAINER (White Box)
-   ======================================== */
-
+/* === PAGE CONTAINER === */
 .page-container {
     max-width: 900px;
-    margin: 0 auto;
-    margin-top: 170px;
+    margin: 170px auto 0;
     padding: 0 20px 25px;
     flex: 1;
 }
 
-/* ========================================
-   MAIN CONTENT - Centered in Page
-   ======================================== */
-
+/* === MAIN CONTENT BOX === */
 .main-content {
     background: #fff;
-    border: 1px solid #c0c9d4;
+    border: #374151; /* content border: cool gray-blue */
     padding: 40px 50px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(6, 185, 255, 0.1);
 }
@@ -287,24 +255,18 @@ body {
     margin-bottom: 0;
 }
 
-/* ========================================
-   SECTION HEADINGS
-   ======================================== */
-
+/* === SECTION HEADINGS === */
 .section-heading {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-    color: #006699;
+    color: #111827; /* heading: teal-blue */
     margin-bottom: 20px;
     padding-bottom: 8px;
-    border-bottom: 2px solid #025FB6;
+    border-bottom: 2px solid #111827; /* heading underline: medium blue */
 }
 
-/* ========================================
-   ABOUT SECTION
-   ======================================== */
-
+/* === ABOUT === */
 .about-text {
     font-size: 1em;
     color: #000;
@@ -319,7 +281,7 @@ body {
 }
 
 .about-contact a {
-    color: #0163BE;
+    color: #111827;
     text-decoration: none;
 }
 
@@ -327,10 +289,7 @@ body {
     text-decoration: underline;
 }
 
-/* ========================================
-   LINKS SECTION (Icons Only in One Line)
-   ======================================== */
-
+/* === SOCIAL LINKS (icon row) === */
 .links-list {
     list-style: none;
     padding: 0;
@@ -352,9 +311,9 @@ body {
     align-items: center;
     justify-content: center;
     padding: 10px;
-    background: #f5f5f5;
+    background: #f5f5f5; /* icon bg: light gray */
     border-radius: 8px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #e0e0e0; /* icon border: lighter gray */
     transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -370,14 +329,11 @@ body {
     display: block;
 }
 
-/* ========================================
-   PROJECT CARDS
-   ======================================== */
-
+/* === PROJECT CARDS === */
 .project-card {
     margin-bottom: 30px;
     padding-bottom: 25px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; /* card divider: light gray */
 }
 
 .project-card:last-of-type {
@@ -390,11 +346,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.2em;
     font-weight: bold;
-    color: #006699;
+    color: #111827;
     margin-bottom: 8px;
 }
 
-/* Technology Tags */
 .tech-tags {
     display: flex;
     flex-wrap: wrap;
@@ -404,7 +359,7 @@ body {
 
 .tech-tag {
     display: inline-block;
-    background: #E8E8E8;
+    background: #E8E8E8; /* tag bg: light gray */
     color: #333;
     font-size: 0.75em;
     font-family: "Courier New", Courier, monospace;
@@ -426,7 +381,7 @@ body {
 
 .project-link {
     display: inline-block;
-    background: #1C9303;
+    background: #111827; /* project link button: green */
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -437,14 +392,11 @@ body {
 }
 
 .project-link:hover {
-    background: #157002;
+    background: #1f2937; /* project link hover: darker green */
     color: #fff;
 }
 
-/* ========================================
-   ACHIEVEMENTS
-   ======================================== */
-
+/* === ACHIEVEMENTS === */
 .achievement-item {
     margin-bottom: 20px;
 }
@@ -457,7 +409,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.1em;
     font-weight: bold;
-    color: #006699;
+    color: #111827;
     margin-bottom: 5px;
 }
 
@@ -467,10 +419,7 @@ body {
     line-height: 1.6;
 }
 
-/* ========================================
-   SKILLS SECTION (Simple comma-separated)
-   ======================================== */
-
+/* === SKILLS === */
 .skills-category {
     margin-bottom: 12px;
 }
@@ -483,7 +432,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.1em;
     font-weight: bold;
-    color: #006699;
+    color: #111827;
     margin-bottom: 2px;
 }
 
@@ -493,22 +442,15 @@ body {
     line-height: 1.5;
 }
 
-/* ========================================
-   ARTICLES SECTION
-   ======================================== */
-
+/* === ARTICLES === */
 .coming-soon {
     font-size: 1em;
     color: #666;
     font-style: italic;
 }
 
-/* ========================================
-   ARTICLES SECTION
-   ======================================== */
-
 #articles-list ul {
-    list-style: none !important;
+    list-style: none;
 }
 
 #articles-list li {
@@ -525,24 +467,21 @@ body {
 }
 
 #articles-list a {
-    color: #0066cc !important;
-    text-decoration: none !important;
+    color: #111827;
+    text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
 }
 
 #articles-list a:hover {
-    color: #004499 !important;
-    text-decoration: underline !important;
+    color: #374151;
+    text-decoration: underline;
 }
 
-/* ========================================
-   LAST MODIFIED
-   ======================================== */
-
+/* === LAST MODIFIED === */
 .last-modified {
     text-align: right;
-    padding: 3px 0 0 0;
+    padding: 3px 0 0;
 }
 
 .last-modified p {
@@ -552,13 +491,10 @@ body {
     margin: 0;
 }
 
-/* ========================================
-   FOOTER
-   ======================================== */
-
+/* === FOOTER === */
 footer {
     padding: 20px 0;
-    background: #024a8a;
+    background: #111827; /* footer: dark blue */
     text-align: center;
     margin-top: auto;
 }
@@ -578,10 +514,82 @@ footer a:hover {
     color: #ccc;
 }
 
-/* ========================================
-   RESPONSIVE - TABLET <= 768px
-   ======================================== */
+/* === TERMINAL === */
+#terminal-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: #000; /* terminal bg: black */
+}
 
+#terminal-wrapper {
+    display: flex;
+    gap: 30px;
+    width: 90%;
+    max-width: 1400px;
+    height: 85%;
+}
+
+#terminal-commands {
+    width: 260px;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #00ff00; /* terminal border: green */
+    color: #00ff00; /* terminal text: green */
+    font-family: monospace;
+}
+
+.cmd-title {
+    font-size: 18px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 6px;
+}
+
+#terminal-commands td {
+    padding: 6px 4px;
+}
+
+#terminal-window {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #00ff00;
+    font-family: monospace;
+    color: #00ff00;
+    background: #000;
+}
+
+#terminal-output {
+    flex: 1;
+    padding: 20px;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-y: auto;
+}
+
+#terminal-input-bar {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    border-top: 1px solid #00ff00;
+    font-size: 18px;
+}
+
+#terminal-input {
+    flex: 1;
+    background: #000;
+    color: #00ff00;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    font-family: monospace;
+}
+
+/* === RESPONSIVE: TABLET (<=768px) === */
 @media (max-width: 768px) {
     .site-header {
         padding: 15px 15px 0;
@@ -640,10 +648,7 @@ footer a:hover {
     }
 }
 
-/* ========================================
-   RESPONSIVE - MOBILE <= 480px
-   ======================================== */
-
+/* === RESPONSIVE: MOBILE (<=480px) === */
 @media (max-width: 480px) {
     .site-header {
         padding: 12px 12px 0;
@@ -719,10 +724,7 @@ footer a:hover {
     }
 }
 
-/* ========================================
-   PRINT
-   ======================================== */
-
+/* === PRINT === */
 @media print {
     body {
         background: #fff;

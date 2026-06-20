@@ -1,13 +1,10 @@
 ---
-
-layout: default
+layout: post
 title: Blog
 permalink: /blog/
------------------
+---
 
 # Blog
-
-{% raw %}
 
 <ul>
 {% for post in site.posts %}
@@ -16,4 +13,3 @@ permalink: /blog/
   </li>
 {% endfor %}
 </ul>
-{% endraw %}

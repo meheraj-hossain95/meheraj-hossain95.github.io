@@ -1,0 +1,92 @@
+---
+permalink: /research-notes/
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Notes | Meheraj Hossain</title>
+  {% include style.html %}
+</head>
+
+<body>
+  <div id="wrapper">
+
+    <a class="back-link" href="/">&larr; Back to Home</a>
+
+    <h1 class="page-title">Research Notes</h1>
+    <p>A collection of notes, paper summaries, and tutorials I write as I learn.</p>
+
+    <hr class="thick">
+
+    <main>
+
+      <details class="accordion-section" open>
+        <summary>Notes</summary>
+        {% assign items = site.notes | sort: 'date' | reverse %}
+        {% if items.size > 0 %}
+        <ul class="accordion-list">
+          {% for item in items %}
+          <li>
+            <a href="{{ item.url }}">
+              <span class="article-title">{{ item.title }}</span>
+            </a>
+            {% if item.description %}<div class="article-desc">{{ item.description }}</div>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="accordion-empty">No notes yet — check back soon.</p>
+        {% endif %}
+      </details>
+
+      <details class="accordion-section">
+        <summary>Paper Summaries</summary>
+        {% assign items = site.summaries | sort: 'date' | reverse %}
+        {% if items.size > 0 %}
+        <ul class="accordion-list">
+          {% for item in items %}
+          <li>
+            <a href="{{ item.url }}">
+              <span class="article-title">{{ item.title }}</span>
+            </a>
+            {% if item.description %}<div class="article-desc">{{ item.description }}</div>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="accordion-empty">No paper summaries yet — check back soon.</p>
+        {% endif %}
+      </details>
+
+      <details class="accordion-section">
+        <summary>Tutorials</summary>
+        {% assign items = site.tutorials | sort: 'date' | reverse %}
+        {% if items.size > 0 %}
+        <ul class="accordion-list">
+          {% for item in items %}
+          <li>
+            <a href="{{ item.url }}">
+              <span class="article-title">{{ item.title }}</span>
+            </a>
+            {% if item.description %}<div class="article-desc">{{ item.description }}</div>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="accordion-empty">No tutorials yet — check back soon.</p>
+        {% endif %}
+      </details>
+
+    </main>
+
+    <footer>
+      <div class="footer-meta">&copy; 2026 Meheraj Hossain</div>
+    </footer>
+
+  </div>
+</body>
+
+</html>

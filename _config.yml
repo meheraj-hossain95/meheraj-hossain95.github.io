@@ -1,1 +1,44 @@
-title: Meheraj Test
+title: "Meheraj Hossain"
+description: "Research Notes"
+
+# Don't let Jekyll try to process/exclude your existing homepage assets
+include:
+  - profile.png
+
+collections:
+  notes:
+    output: true
+    permalink: /research-notes/notes/:path/
+  summaries:
+    output: true
+    permalink: /research-notes/summaries/:path/
+  tutorials:
+    output: true
+    permalink: /research-notes/tutorials/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "notes"
+    values:
+      layout: "article"
+      section_name: "Notes"
+      section_slug: "notes"
+  - scope:
+      path: ""
+      type: "summaries"
+    values:
+      layout: "article"
+      section_name: "Paper Summaries"
+      section_slug: "summaries"
+  - scope:
+      path: ""
+      type: "tutorials"
+    values:
+      layout: "article"
+      section_name: "Tutorials"
+      section_slug: "tutorials"
+
+# Files/folders Jekyll should ignore when building
+exclude:
+  - README.md

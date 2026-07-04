@@ -1,175 +1,153 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap"
-  rel="stylesheet">
+
 <style>
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
+  /* Smaller heading used inside article body (h3) */
+  .article-body h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #000;
+    margin: 18px 0 0 0;
+    letter-spacing: 0.04em;
   }
 
-  body {
-    font-family: 'Merriweather', Georgia, serif;
+  /* Blockquote */
+  .article-body blockquote {
+    margin: 16px 0;
+    padding: 4px 18px;
+    border-left: 3px solid #1E88E5;
+    color: #444;
+    font-style: italic;
+  }
+
+  .article-body blockquote p {
     font-size: 16px;
-    line-height: 1.65;
+  }
+
+  /* Inline code */
+  .article-body code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.9em;
+    background: #f2f2f2;
+    padding: 1px 5px;
+    border-radius: 3px;
     color: #222222;
-    background-color: #ffffff;
-    margin: 0;
+  }
+
+  /* Code blocks — light theme, matches site's paper/editorial look */
+  .article-body pre {
+    background: #f7f7f5;
+    color: #222222;
+    border: 1px solid #ddd;
+    padding: 14px 18px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+  }
+
+  .article-body pre code {
+    background: none;
     padding: 0;
+    color: inherit;
+    font-size: inherit;
+    border-radius: 0;
   }
 
-  #wrapper {
-    max-width: 940px;
-    margin: 40px auto;
-    padding: 0 30px;
-  }
+  /* Rouge/Kramdown syntax highlighting (light theme, muted, on-brand) */
+  .highlight .k, .highlight .kd, .highlight .kn { color: #7a3e9d; }
+  .highlight .s, .highlight .s1, .highlight .s2 { color: #1E88E5; }
+  .highlight .c, .highlight .c1, .highlight .cm { color: #888888; font-style: italic; }
+  .highlight .n, .highlight .nx { color: #222222; }
+  .highlight .nf { color: #b35900; }
+  .highlight .mi, .highlight .mf { color: #2e7d32; }
+  .highlight .o { color: #444444; }
 
-  hr.thick {
-    border: none;
-    border-top: 2px solid #333;
+  /* Tables */
+  .article-body table {
+    width: 100%;
+    border-collapse: collapse;
     margin: 0 0 18px 0;
+    font-size: 15px;
   }
 
-  hr.thin {
-    border: none;
-    border-top: 1px solid #aaaaaa;
-    margin: 4px 0 14px 0;
+  .article-body th,
+  .article-body td {
+    border: 1px solid #dddddd;
+    padding: 8px 12px;
+    text-align: left;
   }
 
-  h1.page-title {
-    font-size: 30px;
+  .article-body th {
+    background: #f5f5f5;
     font-weight: 700;
-    color: #000;
-    margin: 0 0 6px 0;
-    letter-spacing: 0.01em;
-  }
-
-  h2 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #000;
-    margin: 22px 0 0 0;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-  }
-
-  p {
-    margin: 0 0 10px 0;
-    font-size: 16px;
-  }
-
-  ul {
-    margin: 0 0 12px 0;
-    padding-left: 20px;
-  }
-
-  li {
-    margin-bottom: 5px;
-    font-size: 16px;
-  }
-
-  a {
-    color: #1E88E5;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  footer {
-    margin-top: 60px;
-    border-top: 2px solid #333;
-    padding-top: 18px;
-    padding-bottom: 6px;
     font-size: 12px;
-    color: #666;
-    text-align: center;
+    letter-spacing: 0.06em;
+    color: #333;
   }
 
-  footer .footer-meta {
-    color: #999;
-    font-size: 11px;
+  .article-body tr:nth-child(even) td {
+    background: #fafafa;
   }
 
-  .back-link {
-    display: inline-block;
-    margin-bottom: 20px;
-    font-size: 15px;
+  /* In-article dropdown (plain, not the TOC accordion style) */
+  .article-body details.note-box {
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 10px 16px;
+    margin: 0 0 16px 0;
+    background: #fafafa;
   }
 
-  /* Accordion (Table of Contents page) */
-  .accordion-section {
-    border-bottom: 1px solid #aaaaaa;
-  }
-
-  .accordion-section summary {
-    list-style: none;
+  .article-body details.note-box summary {
     cursor: pointer;
-    padding: 14px 0;
-    font-size: 17px;
     font-weight: 700;
-    color: #000;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .accordion-section summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .accordion-section summary::after {
-    content: "+";
-    font-size: 20px;
-    font-weight: 400;
-    color: #1E88E5;
-    margin-left: 12px;
-  }
-
-  .accordion-section[open] summary::after {
-    content: "\2212";
-  }
-
-  .accordion-list {
-    padding: 0 0 18px 4px;
-    margin: 0;
-  }
-
-  .accordion-list li {
-    list-style: none;
-    margin-bottom: 10px;
-  }
-
-  .accordion-list .article-title {
-    font-size: 16px;
-    font-weight: 700;
-    display: block;
-  }
-
-  .accordion-list .article-desc {
-    font-size: 14px;
-    color: #555;
-    margin-top: 2px;
-  }
-
-  .accordion-empty {
     font-size: 15px;
-    color: #666;
-    padding: 0 0 18px 4px;
+    color: #000;
+  }
+
+  .article-body details.note-box[open] summary {
+    margin-bottom: 8px;
+  }
+
+  .article-body details.note-box p {
     margin: 0;
   }
 
-  /* Article page */
-  .article-meta {
-    font-size: 14px;
-    color: #666;
-    margin: 0 0 20px 0;
+  /* Images + captions */
+  .article-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 8px auto 4px auto;
+    border-radius: 4px;
   }
 
-  .article-body p {
-    font-size: 16px;
+  .article-body em:has(+ img),
+  .article-body p > em:only-child {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+    margin-top: -8px;
+    margin-bottom: 16px;
+  }
+
+  /* Footnotes (Kramdown default markup: .footnotes) */
+  .article-body .footnotes {
+    margin-top: 40px;
+    padding-top: 14px;
+    border-top: 1px solid #aaaaaa;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .article-body .footnotes ol {
+    padding-left: 18px;
+  }
+
+  .article-body .footnotes li {
+    font-size: 13px;
+    margin-bottom: 6px;
   }
 </style>

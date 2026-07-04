@@ -10,33 +10,17 @@ permalink: /research-notes/
   <title>Research Notes | Meheraj Hossain</title>
   {% include style.html %}
   <style>
-    /* --- fix 2: bigger +/- toggle icon --- */
-    details.accordion-section > summary {
-      list-style: none;
-      position: relative;
-      cursor: pointer;
-      padding-left: 1.6em;
-    }
-    details.accordion-section > summary::-webkit-details-marker {
-      display: none;
-    }
-    details.accordion-section > summary::before {
-      content: "+";
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.6em;
+    /* --- fix 2: bigger +/- toggle icon (using the existing marker only) --- */
+    details.accordion-section > summary::before,
+    details.accordion-section > summary::after {
+      font-size: 1.5em !important;
       line-height: 1;
-      font-weight: 700;
-    }
-    details.accordion-section[open] > summary::before {
-      content: "\2212"; /* minus sign */
     }
 
-    /* --- fix 4: footer pinned to bottom with a rule above it --- */
+    /* --- fix 4: sticky footer (stays at bottom on short pages, flows after content on long pages) --- */
     html, body {
       height: 100%;
+      margin: 0;
     }
     #wrapper {
       min-height: 100vh;
@@ -44,9 +28,10 @@ permalink: /research-notes/
       flex-direction: column;
     }
     main {
-      flex: 1;
+      flex: 1 0 auto;
     }
     footer {
+      flex-shrink: 0;
       border-top: 2px solid currentColor;
       margin-top: 2rem;
       padding-top: 1rem;

@@ -9,6 +9,50 @@ permalink: /research-notes/
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research Notes | Meheraj Hossain</title>
   {% include style.html %}
+  <style>
+    /* --- fix 2: bigger +/- toggle icon --- */
+    details.accordion-section > summary {
+      list-style: none;
+      position: relative;
+      cursor: pointer;
+      padding-left: 1.6em;
+    }
+    details.accordion-section > summary::-webkit-details-marker {
+      display: none;
+    }
+    details.accordion-section > summary::before {
+      content: "+";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.6em;
+      line-height: 1;
+      font-weight: 700;
+    }
+    details.accordion-section[open] > summary::before {
+      content: "\2212"; /* minus sign */
+    }
+
+    /* --- fix 4: footer pinned to bottom with a rule above it --- */
+    html, body {
+      height: 100%;
+    }
+    #wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1;
+    }
+    footer {
+      border-top: 2px solid currentColor;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
@@ -17,7 +61,6 @@ permalink: /research-notes/
     <a class="back-link" href="/">&larr; Back to Home</a>
 
     <h1 class="page-title">Research Notes</h1>
-    <p>A collection of notes, paper summaries, and tutorials I write as I learn.</p>
 
     <hr class="thick">
 
@@ -33,7 +76,6 @@ permalink: /research-notes/
             <a href="{{ item.url }}">
               <span class="article-title">{{ item.title }}</span>
             </a>
-            {% if item.description %}<div class="article-desc">{{ item.description }}</div>{% endif %}
           </li>
           {% endfor %}
         </ul>
@@ -52,7 +94,6 @@ permalink: /research-notes/
             <a href="{{ item.url }}">
               <span class="article-title">{{ item.title }}</span>
             </a>
-            {% if item.description %}<div class="article-desc">{{ item.description }}</div>{% endif %}
           </li>
           {% endfor %}
         </ul>
@@ -71,7 +112,6 @@ permalink: /research-notes/
             <a href="{{ item.url }}">
               <span class="article-title">{{ item.title }}</span>
             </a>
-            {% if item.description %}<div class="article-desc">{{ item.description }}</div>{% endif %}
           </li>
           {% endfor %}
         </ul>

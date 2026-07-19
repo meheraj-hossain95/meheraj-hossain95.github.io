@@ -13,7 +13,7 @@ Before diving into NLP, let's refresh the Python fundamentals you'll use constan
 
 Python is dynamically typed — you don't declare types explicitly.
 
-```bash
+```python
 # Basic types
 name     = "Alice"          # str
 count    = 42               # int
@@ -29,7 +29,7 @@ print(isinstance(count, int))  # True
 
 Almost all NLP work revolves around strings. Master these operations:
 
-```bash
+```python
 text = "Natural Language Processing is fascinating!"
 
 # Essential string methods

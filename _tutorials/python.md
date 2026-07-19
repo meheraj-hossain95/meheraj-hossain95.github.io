@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Python for NLP"
-section_name: "Reference"
+description: "A practical reference covering Python fundamentals, core NLP preprocessing, classic ML text pipelines, and modern Hugging Face transformers."
 date: 2026-07-19
 ---
 
@@ -59,7 +59,7 @@ print(f"The word '{word}' has {len(word)} characters.")
 
 Lists store sequences — tokens, sentences, and labels all live in lists.
 
-```bash
+```python
 tokens = ["I", "love", "NLP", "!"]
 
 # Access
@@ -86,7 +86,7 @@ long_words = [w for w in words if len(w) > 4]
 
 Dictionaries map keys to values — perfect for word frequencies and vocabularies.
 
-```bash
+```python
 freq = {"the": 10, "cat": 3, "sat": 2}
 
 # Access
@@ -111,7 +111,7 @@ for w in words:
 
 ### 1.5 Functions
 
-```bash
+```python
 def clean_text(text, lowercase=True):
     """Clean raw text for NLP processing."""
     text = text.strip()
@@ -130,7 +130,7 @@ print(strip_fn("  NLP  "))   # "nlp"
 
 ### 1.6 Loops & Conditions
 
-```bash
+```python
 sentences = ["I love NLP.", "Python is great.", "Let's learn!"]
 
 # for loop with index

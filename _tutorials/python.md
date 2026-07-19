@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: article
 title: "Python for NLP"
 description: "A practical reference covering Python fundamentals, core NLP preprocessing, classic ML text pipelines, and modern Hugging Face transformers."
 date: 2026-07-19

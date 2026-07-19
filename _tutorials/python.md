@@ -13,7 +13,7 @@ Before diving into NLP, let's refresh the Python fundamentals you'll use constan
 
 Python is dynamically typed — you don't declare types explicitly.
 
-```python
+```bash
 # Basic types
 name     = "Alice"          # str
 count    = 42               # int
@@ -29,7 +29,7 @@ print(isinstance(count, int))  # True
 
 Almost all NLP work revolves around strings. Master these operations:
 
-```python
+```bash
 text = "Natural Language Processing is fascinating!"
 
 # Essential string methods
@@ -59,7 +59,7 @@ print(f"The word '{word}' has {len(word)} characters.")
 
 Lists store sequences — tokens, sentences, and labels all live in lists.
 
-```python
+```bash
 tokens = ["I", "love", "NLP", "!"]
 
 # Access
@@ -86,7 +86,7 @@ long_words = [w for w in words if len(w) > 4]
 
 Dictionaries map keys to values — perfect for word frequencies and vocabularies.
 
-```python
+```bash
 freq = {"the": 10, "cat": 3, "sat": 2}
 
 # Access
@@ -111,7 +111,7 @@ for w in words:
 
 ### 1.5 Functions
 
-```python
+```bash
 def clean_text(text, lowercase=True):
     """Clean raw text for NLP processing."""
     text = text.strip()
@@ -130,7 +130,7 @@ print(strip_fn("  NLP  "))   # "nlp"
 
 ### 1.6 Loops & Conditions
 
-```python
+```bash
 sentences = ["I love NLP.", "Python is great.", "Let's learn!"]
 
 # for loop with index

@@ -184,9 +184,9 @@
   .toc-sidebar {
     position: fixed;
     top: 100px;
-    /* keeps a 40px gap left of the 930px wrapper; falls back to 20px from
+    /* keeps an 80px gap left of the 930px wrapper; falls back to 20px from
        the viewport edge so it never runs off-screen at the breakpoint edge */
-    left: max(20px, calc(50% - 745px));
+    left: max(20px, calc(50% - 785px));
     width: 240px;
     max-height: calc(100vh - 140px);
     overflow-y: auto;
@@ -215,13 +215,13 @@
   .toc-sidebar .toc-list a {
     display: block;
     font-family: 'Merriweather', Georgia, serif;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.5;
-    color: #333;
+    color: #222;
     text-decoration: none;
     padding: 7px 0 7px 16px;
     border-left: 2px solid #e5e5e5;
-    transition: color 0.15s ease, border-color 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease, border-width 0.15s ease;
   }
 
   .toc-sidebar .toc-list a:hover {
@@ -232,13 +232,15 @@
 
   .toc-sidebar .toc-list a.active {
     color: #1E88E5;
-    border-left-color: #1E88E5;
     font-weight: 700;
+    border-left-width: 5px;
+    border-left-color: #1E88E5;
+    padding-left: 13px;
   }
 
   /* Hide once the viewport is too narrow for the sidebar to fit without
      overlapping the article column */
-  @media (max-width: 1510px) {
+  @media (max-width: 1590px) {
     .toc-sidebar {
       display: none;
     }

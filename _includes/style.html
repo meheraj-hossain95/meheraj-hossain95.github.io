@@ -8,6 +8,10 @@
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: 'Merriweather', Georgia, serif;
     font-size: 16px;
@@ -19,7 +23,7 @@
   }
 
   #wrapper {
-    max-width: 940px;
+    max-width: 930px;
     margin: 40px auto;
     padding: 0 30px;
   }
@@ -51,6 +55,7 @@
     margin: 22px 0 0 0;
     text-transform: uppercase;
     letter-spacing: 0.12em;
+    scroll-margin-top: 24px;
   }
 
   p {
@@ -173,139 +178,70 @@
     font-size: 16px;
   }
 
-  /* ============================================= */
-  /* NEW: article content additions (table, code, blockquote, dropdown, footnotes) */
-  /* ============================================= */
+  /* ============================
+     Table of Contents (sticky, left of #wrapper)
+     ============================ */
+  .toc-sidebar {
+    position: fixed;
+    top: 100px;
+    /* keeps a 40px gap left of the 930px wrapper; falls back to 20px from
+       the viewport edge so it never runs off-screen at the breakpoint edge */
+    left: max(20px, calc(50% - 725px));
+    width: 220px;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    padding-right: 10px;
+  }
 
-  .article-body h3 {
-    font-size: 15px;
+  .toc-sidebar .toc-title {
+    font-size: 13px;
     font-weight: 700;
     color: #000;
-    margin: 18px 0 0 0;
-    letter-spacing: 0.04em;
-  }
-
-  .article-body blockquote {
-    margin: 16px 0;
-    padding: 4px 18px;
-    border-left: 3px solid #1E88E5;
-    color: #444;
-    font-style: italic;
-  }
-
-  .article-body blockquote p {
-    font-size: 16px;
-  }
-
-  .article-body code {
-    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-    font-size: 0.9em;
-    background: #f2f2f2;
-    padding: 1px 5px;
-    border-radius: 3px;
-    color: #222222;
-  }
-
-  .article-body pre {
-    background: #f7f7f5;
-    color: #222222;
-    border: 1px solid #ddd;
-    padding: 14px 18px;
-    border-radius: 4px;
-    overflow-x: auto;
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0 0 16px 0;
-  }
-
-  .article-body pre code {
-    background: none;
-    padding: 0;
-    color: inherit;
-    font-size: inherit;
-    border-radius: 0;
-  }
-
-  .highlight .k, .highlight .kd, .highlight .kn { color: #7a3e9d; }
-  .highlight .s, .highlight .s1, .highlight .s2 { color: #1E88E5; }
-  .highlight .c, .highlight .c1, .highlight .cm { color: #888888; font-style: italic; }
-  .highlight .n, .highlight .nx { color: #222222; }
-  .highlight .nf { color: #b35900; }
-  .highlight .mi, .highlight .mf { color: #2e7d32; }
-  .highlight .o { color: #444444; }
-
-  .article-body table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0 0 18px 0;
-    font-size: 15px;
-  }
-
-  .article-body th,
-  .article-body td {
-    border: 1px solid #dddddd;
-    padding: 8px 12px;
-    text-align: left;
-  }
-
-  .article-body th {
-    background: #f5f5f5;
-    font-weight: 700;
     text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    color: #333;
+    letter-spacing: 0.12em;
+    margin: 0 0 10px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #aaaaaa;
   }
 
-  .article-body tr:nth-child(even) td {
-    background: #fafafa;
-  }
-
-  .article-body details.note-box {
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    padding: 10px 16px;
-    margin: 0 0 16px 0;
-    background: #fafafa;
-  }
-
-  .article-body details.note-box summary {
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 15px;
-    color: #000;
-  }
-
-  .article-body details.note-box[open] summary {
-    margin-bottom: 8px;
-  }
-
-  .article-body details.note-box p {
+  .toc-sidebar .toc-list {
+    list-style: none;
     margin: 0;
+    padding: 0;
   }
 
-  .article-body img {
-    max-width: 100%;
-    height: auto;
+  .toc-sidebar .toc-list li {
+    margin: 0 0 4px 0;
+  }
+
+  .toc-sidebar .toc-list a {
     display: block;
-    margin: 8px auto 4px auto;
-    border-radius: 4px;
-  }
-
-  .article-body .footnotes {
-    margin-top: 40px;
-    padding-top: 14px;
-    border-top: 1px solid #aaaaaa;
+    font-family: 'Merriweather', Georgia, serif;
     font-size: 13px;
+    line-height: 1.4;
     color: #555;
+    text-decoration: none;
+    padding: 5px 0 5px 12px;
+    border-left: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
   }
 
-  .article-body .footnotes ol {
-    padding-left: 18px;
+  .toc-sidebar .toc-list a:hover {
+    color: #1E88E5;
+    text-decoration: none;
   }
 
-  .article-body .footnotes li {
-    font-size: 13px;
-    margin-bottom: 6px;
+  .toc-sidebar .toc-list a.active {
+    color: #1E88E5;
+    border-left-color: #1E88E5;
+    font-weight: 700;
+  }
+
+  /* Hide once the viewport is too narrow for the sidebar to fit without
+     overlapping the article column */
+  @media (max-width: 1470px) {
+    .toc-sidebar {
+      display: none;
+    }
   }
 </style>

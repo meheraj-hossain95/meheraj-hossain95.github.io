@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Python for NLP"
-section_name: "Reference"
+title: "no no no"
+section_name: "something"
 date: 2026-07-19
 ---
 

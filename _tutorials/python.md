@@ -1,6 +1,7 @@
 ---
+layout: default
 title: "Python for NLP"
-description: "A practical reference covering Python fundamentals, core NLP preprocessing, classic ML text pipelines, and modern Hugging Face transformers."
+section_name: "Reference"
 date: 2026-07-19
 ---
 

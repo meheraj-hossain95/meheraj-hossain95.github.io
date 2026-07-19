@@ -1,7 +1,8 @@
 ---
-title: "Fine-Tuning mT5 for Bangla Summarization"
-description: "A step-by-step walkthrough of how I fine-tuned mT5-small on XL-Sum Bangla."
-date: 2026-06-10
+layout: default
+title: "Python for NLP"
+section_name: "Reference"
+date: 2026-07-19
 ---
 
 This tutorial walks through the process I used to fine-tune `mT5-small` on the Bangla subset of the XL-Sum dataset for abstractive summarization.

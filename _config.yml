@@ -1,5 +1,5 @@
 title: "Meheraj Hossain"
-description: "Research Notes"
+description: "Index"
 
 # Don't let Jekyll try to process/exclude your existing homepage assets
 include:
@@ -8,13 +8,13 @@ include:
 collections:
   notes:
     output: true
-    permalink: /research-notes/notes/:path/
+    permalink: /index/notes/:path/
   summaries:
     output: true
-    permalink: /research-notes/summaries/:path/
+    permalink: /index/summaries/:path/
   tutorials:
     output: true
-    permalink: /research-notes/tutorials/:path/
+    permalink: /index/tutorials/:path/
 
 defaults:
   - scope:
@@ -42,3 +42,4 @@ defaults:
 # Files/folders Jekyll should ignore when building
 exclude:
   - README.md
+  - note_index.html

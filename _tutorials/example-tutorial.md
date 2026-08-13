@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: article
 title: "no no no"
 section_name: "something"
 date: 2026-07-19

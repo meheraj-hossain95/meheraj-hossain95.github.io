@@ -1,5 +1,5 @@
 ---
-permalink: /research-notes/
+permalink: /index/
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -7,17 +7,17 @@ permalink: /research-notes/
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research Notes | Meheraj Hossain</title>
+  <title>Index | Meheraj Hossain</title>
   {% include style.html %}
   <style>
-    /* --- fix 2: bigger +/- toggle icon (using the existing marker only) --- */
+    /* Details +/- marker styling */
     details.accordion-section > summary::before,
     details.accordion-section > summary::after {
       font-size: 1.5em !important;
       line-height: 1;
     }
 
-    /* --- fix 4: sticky footer (stays at bottom on short pages, flows after content on long pages) --- */
+    /* Sticky footer layout */
     html, body {
       height: 100%;
       margin: 0;
@@ -32,20 +32,37 @@ permalink: /research-notes/
     }
     footer {
       flex-shrink: 0;
-      border-top: 2px solid currentColor;
+      border-top: 2px solid var(--border-thick);
       margin-top: 2rem;
       padding-top: 1rem;
       text-align: center;
     }
   </style>
+  <script>
+    // Initialize theme before render to prevent flash
+    (function() {
+      const savedTheme = localStorage.getItem('index-theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
 </head>
 
 <body>
   <div id="wrapper">
 
-    <a class="back-link" href="/">&larr; Back to Home</a>
+    <div class="page-header-row">
+      <a class="back-link" href="/">&larr; Back to Home</a>
+      <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle theme">
+        <span id="themeToggleIcon">🌙</span>
+        <span id="themeToggleText">Dark Mode</span>
+      </button>
+    </div>
 
-    <h1 class="page-title">Research Notes</h1>
+    <h1 class="page-title">Index</h1>
 
     <hr class="thick">
 
@@ -112,6 +129,34 @@ permalink: /research-notes/
     </footer>
 
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('themeToggleBtn');
+      const toggleIcon = document.getElementById('themeToggleIcon');
+      const toggleText = document.getElementById('themeToggleText');
+
+      function updateUI() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (toggleIcon && toggleText) {
+          toggleIcon.textContent = isDark ? '☀️' : '🌙';
+          toggleText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        }
+      }
+
+      updateUI();
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('index-theme', newTheme);
+          updateUI();
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>

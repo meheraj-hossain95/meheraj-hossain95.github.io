@@ -71,7 +71,7 @@ console.log(greet("world"));
 
 ## Image
 
-![Alt text describing the image](https://via.placeholder.com/800x400)
+![Alt text describing the image](data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400"><rect width="800" height="400" fill="%23e2e8f0"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="%2364748b">Placeholder Image (800x400)</text></svg>)
 
 *Caption text goes here, if you want one — see note at bottom for caption styling.*
 

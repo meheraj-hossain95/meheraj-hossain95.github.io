@@ -56,9 +56,8 @@ permalink: /index/
 
     <div class="page-header-row">
       <a class="back-link" href="/">&larr; Back to Home</a>
-      <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle theme">
+      <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle dark/light mode">
         <span id="themeToggleIcon">🌙</span>
-        <span id="themeToggleText">Dark Mode</span>
       </button>
     </div>
 
@@ -68,7 +67,7 @@ permalink: /index/
 
     <main>
 
-      <details class="accordion-section" open>
+      <details class="accordion-section">
         <summary>Notes</summary>
         {% assign items = site.notes | sort: 'date' | reverse %}
         {% if items.size > 0 %}
@@ -134,13 +133,14 @@ permalink: /index/
     document.addEventListener('DOMContentLoaded', function() {
       const toggleBtn = document.getElementById('themeToggleBtn');
       const toggleIcon = document.getElementById('themeToggleIcon');
-      const toggleText = document.getElementById('themeToggleText');
 
       function updateUI() {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        if (toggleIcon && toggleText) {
+        if (toggleIcon) {
           toggleIcon.textContent = isDark ? '☀️' : '🌙';
-          toggleText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+        }
+        if (toggleBtn) {
+          toggleBtn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
         }
       }
 

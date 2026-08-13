@@ -3,14 +3,9 @@ layout: article
 title: PyTorch Tutorial
 description: Easy Pytorch Tutorial
 date: 2026-08-13
-tags:
-  - pytorch
-  - deep-learning
-  - tensor
-  - training
 ---
 
-# Tensor Creation
+## Tensor Creation
 
 A **tensor** is the fundamental data structure in PyTorch. Think of it as a multi-dimensional array (like a NumPy array), but with two superpowers: it can run on a GPU, and PyTorch can automatically track the operations.
 
@@ -31,7 +26,7 @@ torch.linspace(0, 1, 5)     # 5 evenly spaced values between 0 and 1
 
 ---
 
-# Tensor Attributes
+## Tensor Attributes
 
 Every tensor stores some useful information about itself.
 
@@ -53,7 +48,7 @@ print(tensor.device)   # cpu
 
 ---
 
-# Reshaping
+## Reshaping
 
 Sometimes the data has the correct values but the wrong shape. Reshaping changes only the **dimensions**, never the underlying data or the number of elements.
 
@@ -87,7 +82,7 @@ img_again = batch.squeeze(0)     # back to [C, H, W]
 
 ---
 
-# Indexing
+## Indexing
 
 Access specific elements, rows, or columns.
 
@@ -113,7 +108,7 @@ x[1, 2]
 
 ---
 
-# Element-wise Operations
+## Element-wise Operations
 
 Arithmetic operators work **element by element**.
 
@@ -134,7 +129,7 @@ x + y
 
 ---
 
-# Matrix Multiplication
+## Matrix Multiplication
 
 Unlike `*` (element-wise), matrix multiplication follows the rules of linear algebra: the inner dimensions must match.
 
@@ -155,7 +150,7 @@ x @ y
 
 ---
 
-# Statistics
+## Statistics
 
 ```python
 tensor.mean()
@@ -178,7 +173,7 @@ tensor.argmax(dim=1)    # Row-wise
 
 ---
 
-# Data Type Conversion
+## Data Type Conversion
 
 ```python
 tensor.float()      # float32
@@ -189,7 +184,7 @@ tensor.bool()       # bool
 
 ---
 
-# Device (CPU / GPU)
+## Device (CPU / GPU)
 
 ```python
 tensor.to(device)
@@ -206,7 +201,7 @@ tensor = tensor.to(device)
 
 ---
 
-# NumPy Conversion
+## NumPy Conversion
 
 ```python
 tensor.numpy()          # Tensor -> NumPy (CPU only)
@@ -216,7 +211,7 @@ torch.from_numpy(arr)   # NumPy -> Tensor
 
 ---
 
-# Useful Checks
+## Useful Checks
 
 Detect invalid values before training silently breaks. Especially useful when debugging exploding gradients or numerical instability (a loss that suddenly becomes `nan`).
 
@@ -227,7 +222,7 @@ torch.isinf(x)      # Infinite values
 
 ---
 
-# Autograd (Automatic Differentiation)
+## Autograd (Automatic Differentiation)
 
 This is the piece that makes "learning" possible. Any tensor created with `requires_grad=True` has its operations tracked in a computation graph. Calling `.backward()` on a final scalar (like a loss) walks that graph backward and fills in `.grad` for every tensor that led to it.
 
@@ -246,7 +241,7 @@ You'll almost never write this by hand for a real model — `nn.Module` paramete
 
 ---
 
-# Dataset (`torch.utils.data.Dataset`)
+## Dataset (`torch.utils.data.Dataset`)
 
 You implement three methods:
 
@@ -276,7 +271,7 @@ class MyDataset(Dataset):
 
 ---
 
-# DataLoader (`torch.utils.data.DataLoader`)
+## DataLoader (`torch.utils.data.DataLoader`)
 
 A **DataLoader** wraps a Dataset and automatically:
 
@@ -304,7 +299,7 @@ for x, y in loader:
 
 ---
 
-# Important DataLoader Parameters
+## Important DataLoader Parameters
 
 ### `batch_size`
 
@@ -365,7 +360,7 @@ drop_last=False
 
 ---
 
-# Train / Validation / Test Split
+## Train / Validation / Test Split
 
 | Split | Purpose |
 |--------|---------|
@@ -386,7 +381,7 @@ train_ds, val_ds = random_split(dataset, [train_size, val_size])
 
 ---
 
-# Building Models — `nn.Module`
+## Building Models — `nn.Module`
 
 Every model you build in PyTorch — from a two-line linear model to a full transformer — is a Python class that inherits from `nn.Module`. It's worth slowing down here since everything else (training, saving, GPUs) is built on top of this pattern.
 
@@ -453,7 +448,7 @@ model = nn.Sequential(
 
 ---
 
-# Activation Functions
+## Activation Functions
 
 Activation functions are inserted *between* layers to let the network learn non-linear patterns — stacking `Linear` layers alone, with nothing in between, collapses mathematically into a single `Linear` layer no matter how many you stack.
 
@@ -477,7 +472,7 @@ layer = nn.Sequential(
 
 ---
 
-# Loss Functions
+## Loss Functions
 
 The loss function measures how wrong the model's predictions are; `loss.backward()` (covered in the training loop below) then uses that single number to figure out how to adjust every weight.
 
@@ -493,7 +488,7 @@ loss = criterion(logits, targets)   # logits: [B, num_classes] raw, targets: [B]
 
 ---
 
-# Optimizers
+## Optimizers
 
 The optimizer is what actually updates the model's weights, using the gradients that `loss.backward()` computed.
 
@@ -509,7 +504,7 @@ Note that you always pass `model.parameters()` (or a filtered subset of it) — 
 
 ---
 
-# Learning Rate & Scheduler
+## Learning Rate & Scheduler
 
 Learning rate controls the size of each weight update. Too high → loss oscillates or diverges (`nan`). Too low → training crawls. Common starting points: `1e-3` for Adam/AdamW, `1e-2` to `1e-1` for SGD. If loss doesn't decrease at all, try lowering it 10x; if it decreases too slowly, try raising it.
 
@@ -532,7 +527,7 @@ for epoch in range(num_epochs):
 
 ---
 
-# `model.train()` vs `model.eval()`
+## `model.train()` vs `model.eval()`
 
 - `model.train()` — enables training-mode behavior: `Dropout` randomly zeroes activations, `BatchNorm` uses current-batch statistics.
 - `model.eval()` — disables it: `Dropout` becomes a no-op, `BatchNorm` uses stored running statistics from training.
@@ -541,7 +536,7 @@ for epoch in range(num_epochs):
 
 ---
 
-# `torch.no_grad()`
+## `torch.no_grad()`
 
 Disables gradient tracking within its block — use it whenever you won't call `.backward()` (validation, inference). This saves memory (no computation graph stored) and speeds things up.
 
@@ -554,7 +549,7 @@ Related: `torch.inference_mode()` is a stricter, slightly faster version for pur
 
 ---
 
-# Device, for Training
+## Device, for Training
 
 Move **both** the model and every input/target tensor to the same device — mismatched devices raise a runtime error.
 
@@ -661,7 +656,7 @@ for epoch in range(num_epochs):
 
 ---
 
-# Saving / Loading Models
+## Saving / Loading Models
 
 There are two different things you can save, and they solve different problems — mixing them up is a common source of confusion.
 

@@ -166,5 +166,34 @@ footer .footer-meta{color:var(--subtle-text);font-size:11px}
 .toc-sidebar .toc-list a:hover{color:var(--link-color);border-left-color:var(--link-color);text-decoration:none}
 .toc-sidebar .toc-list a.active{color:var(--link-color);font-weight:700;border-left-width:5px;border-left-color:var(--link-color);padding-left:13px}
 
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 20px;
+  font-size: 15px;
+}
+
+.article-body th,
+.article-body td {
+  border: 1px solid var(--border-thin);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.article-body th {
+  background-color: var(--code-bg);
+  font-weight: 700;
+  color: var(--heading-color);
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: .04em;
+}
+
+.article-body tr:nth-child(even) td {
+  background-color: var(--code-inline-bg);
+}
+
+
 @media(max-width:1590px){.toc-sidebar{display:none}}
 </style>

@@ -2,7 +2,7 @@
 layout: article
 title: "Text to LLM Output"
 description: "Basic Note for NLP."
-date: 2026-07-19
+date: 2026-08-15
 ---
 
 A transformer-based NLP system turns raw text into output through a sequence of well-documented steps, grouped below into 7 stages for clarity. Stages 1–6 are shared by essentially all transformer models; Stage 7 splits into two different pipelines depending on the task.

@@ -5,103 +5,379 @@ description: "Basic Note for NLP."
 date: 2026-08-15
 ---
 
-A transformer-based NLP system turns raw text into output through a sequence of well-documented steps, grouped below into 7 stages for clarity. Stages 1–6 are shared by essentially all transformer models; Stage 7 splits into two different pipelines depending on the task.
+A transformer based language system does not take a sentence and immediately understand it as a human would. The text first has to be converted into a form the model can process. The model then repeatedly transforms those representations through several layers until it can either produce a useful representation of the text or predict what token should come next.
 
----
+There is no single official sequence of numbered stages that every transformer model follows. Different models use different tokenizers, positional methods, transformer architectures, and output mechanisms. The numbering below is only a convenient way to understand the main steps involved.
 
-## Stage 1: Text → Tokens
+## 1. Text → Tokens
 
-The model can't read words directly — it first has to chop text into pieces called **tokens**. Tokens are usually **subword units**: smaller than a whole word, bigger than a single letter.
+The first important step is tokenization.
 
-Example: `"unhappiness"` → `["un", "happi", "ness"]`
+A model does not normally treat every complete word as one unit. Modern language models commonly divide text into smaller pieces called tokens. A token may be a complete word, part of a word, punctuation, whitespace information, or even a single character or byte, depending on the tokenizer.
 
-Why not just split on whole words? Because any word that isn't in the model's dictionary (a typo, a rare name, a made-up word) would be a dead end. By breaking words into smaller, reusable chunks, the model can always represent *any* text — even words it's never seen — by combining known fragments. This is called fixing the "out-of-vocabulary" problem.
+For example:
 
-### The main ways to build subword tokens
+```text
+"unhappiness"
+        ↓
+["un", "happi", "ness"]
+```
 
-- **BPE (Byte Pair Encoding)** — Start with every character (or byte) separate. Look at the training text and find the pair of pieces that appears together most often, and merge them into one unit. Repeat this thousands of times until you have a vocabulary of the size you want (e.g. ~50,000 tokens for GPT-2, ~100,000 for GPT-4's tokenizer). It's a simple "merge whatever is most common" rule, originally borrowed from a 1994 data-compression algorithm. Used by the GPT family, and (via SentencePiece, see below) by LLaMA.
-- **WordPiece** — Very similar to BPE — it also starts from characters and merges pairs step by step — but instead of merging the *most frequent* pair, it merges whichever pair *most improves the model's ability to predict the training text* (a likelihood-based test rather than a raw frequency count). Used by BERT and its relatives (DistilBERT, Electra).
-- **SentencePiece** — Not a merge rule by itself, but a tokenizer *framework*. Its key difference: it treats the raw text as one continuous stream of characters, including spaces, instead of assuming text is already split into words. That makes it work well for languages like Japanese or Thai that don't use spaces between words at all. Internally, SentencePiece runs one of two algorithms to actually decide the vocabulary:
-  - its **BPE** mode (same merge-most-frequent-pair idea, applied to raw text) — used by LLaMA
-  - its **Unigram** mode — starts from a huge candidate vocabulary and repeatedly *removes* the least useful piece until it hits the target size (the opposite direction from BPE/WordPiece) — used by T5, ALBERT, XLNet, and Gemma
+The exact result depends on the tokenizer used by the model.
 
-In short: BPE, WordPiece, and Unigram are the actual *algorithms* for deciding which pieces belong in the vocabulary. SentencePiece is a *framework* that can run the BPE or Unigram algorithm, and its defining feature is that it works on raw, unsegmented text rather than text that's already been split on spaces.
+The reason for using smaller pieces is simple. A vocabulary containing every possible word would become enormous, and new words are constantly appearing. Names, technical terms, spelling mistakes, abbreviations, and newly created words would also be difficult to handle with a strict whole word vocabulary.
 
-The exact tokenizer used by fully closed models (GPT-4, Claude) isn't always published in full detail, but publicly available information indicates they're BPE-family tokenizers, consistent with the rest of the field.
+Subword tokenization provides a practical compromise. Common words and word parts can receive their own tokens, while unfamiliar words can usually be represented by combining smaller pieces.
 
----
+This greatly reduces the out of vocabulary problem.
 
-## Stage 2: Tokens → Token IDs
+### BPE
 
-Once text is split into tokens, each token gets swapped for a plain number — its position in the model's vocabulary list. This is nothing new conceptually (it's just a lookup, like a word appearing at entry #4821 in a dictionary) — the only thing that changed from older NLP is that the vocabulary is made of subwords instead of whole words.
+BPE, or Byte Pair Encoding, is one of the widely used approaches for creating subword vocabularies.
 
-Example: `["un", "happi", "ness"]` → `[204, 8821, 119]`
+The basic idea is straightforward. It starts with small pieces and repeatedly combines pieces that commonly occur together in the training data. Over many such merges, frequently occurring sequences become individual tokens.
 
----
+Modern systems can use different forms of BPE. GPT 2, for example, uses byte level BPE. This means that the tokenizer works from bytes rather than assuming that the input consists only of ordinary characters or already separated words.
 
-## Stage 3: Token IDs → Vectors (Embeddings)
+It is therefore better to say that GPT style systems use the BPE family of tokenization rather than assuming that every GPT model uses exactly the same tokenizer.
 
-A plain number like `8821` doesn't tell the model anything about *meaning*. So each token ID is converted into a list of numbers — a **vector** — using a lookup table the model learned during training. Similar-meaning tokens end up with similar vectors.
+### WordPiece
 
-This step is also where a lot of *older* NLP techniques used to do all the "meaning" work, before transformers existed:
+WordPiece is another subword tokenization method. It is closely related to BPE, but its vocabulary construction uses a different training objective.
 
-| Method | What it does | Why it fell short |
-|---|---|---|
-| One-hot encoding | A vector that's all zeros except a single 1 marking which word it is | Captures no meaning at all — every word is equally "different" from every other word |
-| Bag of Words (BoW) | Adds up the one-hot vectors of every word in a document into one word-count vector | Order is thrown away completely — "dog bites man" and "man bites dog" look identical |
-| TF-IDF | Same as BoW, but down-weights common words (like "the") and up-weights rare, distinctive words | Still no real meaning, still no context, still ignores order |
-| Static embeddings (Word2Vec, GloVe, FastText) | The first method to give each word a genuinely meaningful dense vector, learned from how words are used | Still only *one* fixed vector per word — "bank" gets the exact same vector whether it means a riverbank or a money bank |
+BERT uses WordPiece tokenization.
 
-Modern token embeddings are dense too, similar in spirit to static embeddings — but they're only the *starting point*. What makes them powerful is the next stage, where they get reshaped based on context. Static embeddings never had that.
+It is also important to separate how WordPiece is trained from how it tokenizes new text. Once its vocabulary has been created, WordPiece tokenization uses a longest matching approach to find suitable pieces from that vocabulary.
 
----
+For example, an unfamiliar word might be represented by several smaller pieces rather than being discarded simply because the complete word was not present in the vocabulary.
 
-## Stage 4: Positional Information
+### SentencePiece
 
-Transformers read all tokens of a sentence **at the same time**, in parallel — unlike older models like RNNs, which read one word after another in order. The upside is speed; the downside is that the model has no built-in sense of *which token came first*. So the model needs to be told, explicitly, where each token sits in the sentence.
+SentencePiece is slightly different because it is primarily a tokenizer framework rather than one single tokenization algorithm.
 
-- **Original Transformer (2017), BERT, GPT-2/GPT-3**: each position gets its own positional vector (learned, or built from a fixed sine/cosine pattern), which is simply added on top of the token's embedding before anything else happens.
-- **Later models — GPT-NeoX, GPT-J, LLaMA, PaLM**: use a newer trick called **RoPE** (Rotary Positional Embeddings). Instead of adding a separate position vector at the start, RoPE works *during* attention itself — it slightly rotates the query and key vectors based on position, so the model naturally senses how far apart two tokens are.
+It can use algorithms such as BPE and Unigram. Its important practical feature is that it can work directly with raw text rather than requiring the text to be split into words first.
 
-> Correction worth knowing: GPT-3 uses the older learned-position approach, same family as GPT-2 — **not** RoPE. RoPE only became common with later models.
+This is particularly useful for languages where spaces do not reliably separate words, such as Japanese and Chinese. SentencePiece treats the input as a sequence of characters and preserves whitespace information as part of its processing.
 
-> The exact scheme used inside closed models like GPT-3.5/4 or Claude isn't publicly documented, so treat specific claims about those as guesses, not facts.
+For example, a model can be trained with SentencePiece using either BPE or the Unigram approach. These are different ways of deciding which pieces should make up the vocabulary.
 
-Without any positional signal, the model would basically see a jumbled bag of tokens instead of an ordered sentence — even Stage 3's embeddings alone don't fix that.
+So the relationship is:
 
----
+```text
+BPE        → tokenization algorithm
+WordPiece  → tokenization algorithm
+Unigram    → tokenization algorithm
 
-## Stage 5: Self-Attention (Transformer Layers)
+SentencePiece → framework that can implement BPE or Unigram
+```
 
-This is where the actual "understanding" happens. In self-attention, every token looks at every other token in the sentence and decides how much attention to pay to each one, then updates its own vector using that information.
+Different model families use different choices. BERT uses WordPiece, while models such as T5 have used SentencePiece with the Unigram approach, and LLaMA uses a SentencePiece based BPE tokenizer.
 
-A simple example: in "The laptop overheated because its fan broke," the word "its" needs to figure out that it refers to "laptop." Self-attention is the mechanism that lets "its" pull in information from "laptop," even though they're several words apart. This happens for every token, across many stacked layers, each layer refining the representations further.
+The tokenizer is trained separately from the main language model and its vocabulary becomes part of the model's overall setup. A different tokenizer can divide exactly the same sentence into a different sequence of tokens.
 
-None of the older methods (TF-IDF, static embeddings) have any equivalent step — they have no way for one word's vector to be influenced by its neighbors. This is the single biggest reason transformers took over from everything that came before.
+## 2. Tokens → Token IDs
 
----
+After the text has been divided into tokens, the model still cannot directly work with the token strings.
 
-## Stage 6: Contextualized Token Representations
+Each token is assigned an integer ID from the model's vocabulary.
 
-After passing through all the attention layers, every token ends up with a vector that reflects the *entire sentence*, not just the word itself.
+For example:
 
-So now:
-- "Bank" in "I sat on the river **bank**" → one vector
-- "Bank" in "I deposited money at the **bank**" → a *different* vector, even though it's the same word
+```text
+["un", "happi", "ness"]
+        ↓
+[204, 8821, 119]
+```
 
-That's the core upgrade over static embeddings, which would have given "bank" the exact same vector in both sentences no matter what.
+The numbers themselves do not contain meaning. They simply identify entries in the model's vocabulary.
 
----
+You can think of the vocabulary as a large lookup table. When the tokenizer produces a token, the model looks up the corresponding ID.
 
-## Stage 7: Two Branches
+Special tokens may also be added at this point depending on the model. These can represent things such as the beginning or end of a sequence, padding, or other model specific instructions.
 
-At this point, the pipeline splits depending on what the model is actually built to do.
+For conversational models, there can also be another layer of formatting before tokenization. A chat system may convert separate system, user, and assistant messages into a particular sequence of text and special tokens that the model has been trained to understand.
 
-**(A) Embedding / similarity use case** — used for semantic search, RAG (retrieval-augmented generation), clustering, and deduplication.
-The per-token vectors from Stage 6 are squashed down into a *single* vector representing the whole sentence or document — this is called **pooling** (common approaches: averaging all token vectors, using a special `[CLS]` token's vector, or using the last token's vector). Two pieces of text can then be compared for similarity just by measuring the angle between their vectors (cosine similarity).
-Examples: Sentence-BERT, E5, and the embedding APIs from OpenAI, Cohere, Google.
+This means that what reaches the tokenizer is not always just the exact sentence typed by the user.
 
-**(B) Generative use case** — this is what people usually mean by "an LLM": ChatGPT, Claude, LLaMA.
-Instead of pooling into one vector, the model uses the Stage 6 output to predict the *next token*: it runs the vectors through an "unembedding" layer that scores every token in the vocabulary, turns those scores into a probability distribution, and samples one token as the output. That new token gets appended to the input, and the **entire pipeline runs again from Stage 1** to produce the next token — and this repeats, one token at a time, until the response is complete.
+## 3. Token IDs → Token Embeddings
 
-There's no single pooled sentence vector in this branch — it's a fundamentally different final step than (A), even though both branches share Stages 1–6.
+An integer such as `8821` does not tell the model anything useful by itself. The model therefore converts each token ID into a vector of learned values called an embedding.
+
+The easiest way to think about this is as a learned lookup table.
+
+```text
+Token ID
+   ↓
+Embedding table
+   ↓
+Vector representing that token
+```
+
+The embedding is learned during training. Tokens that are used in related contexts can develop related representations, although there is no rule saying that similar meanings must always produce nearby representations.
+
+This is one of the places where modern language processing differs from older text representation methods.
+
+### One Hot Encoding
+
+One hot encoding represents each word using a vector in which one position identifies the word and all other positions are zero.
+
+It tells us which word we have, but it does not tell us anything about the relationship between words.
+
+For example, the representation of "cat" and "dog" would be just as unrelated as the representation of "cat" and "airplane".
+
+### Bag of Words
+
+Bag of Words counts the words that appear in a document.
+
+This can be useful for simple text classification and search tasks, but it largely throws away word order.
+
+For example:
+
+```text
+dog bites man
+man bites dog
+```
+
+would contain the same words with the same counts.
+
+The two sentences have very different meanings, but Bag of Words cannot represent that difference.
+
+### TF IDF
+
+TF IDF improves on simple word counting by giving more importance to words that are distinctive within a collection of documents.
+
+It is still based on word occurrence rather than a learned contextual representation. It does not naturally capture the changing meaning of a word based on its surrounding text.
+
+### Word2Vec, GloVe, and FastText
+
+These methods introduced a major improvement because words were represented using dense learned vectors.
+
+Instead of simply saying that two words are different, the representation could capture useful relationships learned from how words appear in text.
+
+However, these older embeddings are static. A word normally receives the same learned representation regardless of the sentence in which it appears.
+
+For example:
+
+```text
+I sat beside the river bank.
+
+I deposited money in the bank.
+```
+
+A traditional static embedding gives "bank" one main representation.
+
+Transformer models take a different approach. The initial token representation is only the starting point. The representation is changed as the token interacts with the surrounding context.
+
+## 4. Adding Information About Position
+
+Knowing which tokens are present is not enough. The model also needs information about their order.
+
+Consider:
+
+```text
+The dog chased the cat.
+
+The cat chased the dog.
+```
+
+The same words are present, but their order changes the meaning.
+
+The original Transformer did not use recurrence to process one word after another. It processed the sequence using attention and therefore needed a way to provide information about token positions. The original Transformer added positional information to the token representations before processing them through the model.
+
+Different transformer models have used different approaches.
+
+The original Transformer used fixed sine and cosine positional encodings.
+
+BERT used learned positional embeddings.
+
+GPT 2 and GPT 3 also used learned positional embeddings rather than RoPE.
+
+Later models introduced other approaches. RoPE, or Rotary Position Embedding, is one important example. Rather than simply adding a separate position vector to every token representation, RoPE incorporates positional information into the attention calculation by rotating parts of the representations according to their positions.
+
+The important point is that the positional method is not the same across all transformer models. The model needs some way to distinguish the position and ordering of tokens, but the exact mechanism depends on the architecture.
+
+## 5. Transformer Layers
+
+The token representations now enter the main body of the transformer.
+
+This is where the model repeatedly allows information from different parts of the sequence to interact and transforms those representations into richer ones.
+
+It is common to describe this simply as self attention, but a transformer layer is more than attention alone.
+
+A typical transformer layer contains attention, a feed forward network, residual connections, and normalization. The exact arrangement varies between architectures.
+
+The original Transformer used layers containing multi head self attention followed by a position wise feed forward network, with residual connections and normalization around these components.
+
+### Self Attention
+
+Self attention allows a token to consider other tokens in the same sequence when building its current representation.
+
+Consider:
+
+```text
+The laptop overheated because its fan broke.
+```
+
+When processing "its", information from other parts of the sentence can influence the representation of that token. The model can learn relationships between words even when those words are separated by several other tokens.
+
+This is much more flexible than older representations such as TF IDF or static word embeddings because the representation of a token can change according to its context.
+
+It is important, however, not to describe attention as if it were a small human reasoning process happening inside each word. Attention is a mechanism for moving and combining information between token representations. Useful linguistic behavior emerges from the entire trained network, not from attention alone.
+
+### Multiple Attention Heads
+
+Modern transformers normally use multiple attention heads.
+
+Each head can learn to focus on different relationships within the sequence. One may become useful for certain grammatical relationships, another may capture other dependencies, and another may behave differently again.
+
+The model does not receive labels telling each head what type of relationship to learn. These patterns develop during training.
+
+### Feed Forward Network
+
+Attention allows information to be exchanged between positions, but that is not the only computation performed by a transformer layer.
+
+After attention, a feed forward network further transforms the representation at each position.
+
+This component is important because a transformer layer is not simply a system that copies information from one word to another. It repeatedly transforms the information it has received.
+
+This attention and transformation process is repeated across many layers.
+
+## 6. Contextualized Representations
+
+As the representations pass through the transformer layers, they become increasingly dependent on their surrounding context.
+
+This is one of the most important differences between static word embeddings and transformer representations.
+
+Consider the word "bank":
+
+```text
+I sat beside the river bank.
+
+I deposited money at the bank.
+```
+
+The token is the same, but the surrounding words are different.
+
+After processing the context, the representation associated with "bank" can therefore be different in the two sentences.
+
+This is why transformer representations are often called contextualized representations.
+
+The exact amount of context available depends on the architecture.
+
+A bidirectional encoder such as BERT can use information from both sides of a token when producing its representation.
+
+A decoder only language model such as GPT uses causal attention during generation. A token cannot look ahead at tokens that have not yet been generated. Its representation is therefore based on the information available up to that point.
+
+This distinction matters because it is not accurate to say that every transformer token always sees the entire sentence.
+
+## 7. From Contextualized Representations to Output
+
+At this point, there is no single universal next step. What happens next depends on what the model was designed and trained to do.
+
+Some transformer models are designed to produce useful representations of text. Others are designed to predict tokens. Encoder decoder models can use one sequence to help generate another.
+
+### Text Embedding
+
+For an embedding model, the contextualized token representations can be combined into a single representation of a sentence, paragraph, or document.
+
+One common approach is pooling, where information from the token representations is combined into one fixed size representation.
+
+Different models use different strategies. Some use the representation of a special token. Others average token representations or use another learned or predefined method.
+
+Sentence BERT, for example, was specifically designed to produce sentence embeddings that can be efficiently compared for semantic similarity.
+
+These embeddings are useful for tasks such as:
+
+1. Semantic search
+2. Retrieval augmented generation
+3. Document clustering
+4. Duplicate detection
+5. Recommendation
+6. Text classification
+
+Two pieces of text can then be compared using a similarity measure such as cosine similarity.
+
+The important distinction is that an embedding model is trying to produce a useful representation of the text. It is not necessarily trying to write the next word.
+
+### Next Token Prediction
+
+Generative language models take a different route.
+
+Instead of reducing the entire input to one sentence vector, the model uses the representations produced by the transformer to predict the next token.
+
+For example:
+
+```text
+The weather is
+```
+
+The model may assign high probability to tokens such as:
+
+```text
+good
+cold
+beautiful
+sunny
+```
+
+The model then selects a token according to its generation strategy.
+
+Suppose it selects:
+
+```text
+The weather is beautiful
+```
+
+That new token becomes part of the sequence, and the model predicts another token.
+
+This continues until the model reaches an appropriate stopping condition.
+
+The original Transformer already used this autoregressive idea in its decoder. The decoder generated one output element at a time while using previously generated elements as additional input.
+
+Modern decoder only language models follow the same broad principle for text generation.
+
+### Efficient Generation
+
+A simple explanation might say that the model processes the entire sequence again every time a new token is produced.
+
+That is useful for understanding the basic idea, but modern implementations use caching to make generation more efficient.
+
+During generation, the model can store information from previous tokens, commonly through a key value cache. This allows it to avoid recomputing certain information that has already been produced.
+
+Therefore, generation is conceptually sequential, but the actual implementation is optimized to avoid unnecessary computation.
+
+## 8. The Main Idea
+
+The complete process can be understood as a sequence of transformations:
+
+```text
+Text
+ ↓
+Tokens
+ ↓
+Token IDs
+ ↓
+Token embeddings
+ ↓
+Positional information
+ ↓
+Transformer layers
+ ↓
+Contextualized representations
+ ↓
+Output
+```
+
+For an embedding model, the contextualized representations can be combined into a representation of the text.
+
+For a generative language model, those representations are used to predict the next token. The predicted token is added to the sequence, and the model continues predicting subsequent tokens until generation stops.
+
+The important thing is that these are not rigid stages shared identically by every transformer model. They are the main concepts needed to understand how text moves through modern transformer based language systems.
+
+The tokenizer can differ. The positional method can differ. The transformer layer design can differ. Some models are encoders, some are decoders, and some combine both.
+
+The central idea remains simple.
+
+Text is converted into tokens. Tokens are mapped to IDs and then to learned representations. Positional information helps the model understand order. Transformer layers allow information from different parts of the input to interact and repeatedly transform those representations. The resulting contextualized representations can then be used for different purposes, including representing text or predicting the next token.
+
+For a generative language model, the final response is produced one token at a time. The model predicts a token, adds it to the sequence, and continues until generation stops.
